@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IoTControl.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,32 @@ namespace IoTControl
         public MainWindow()
         {
             InitializeComponent();
+            Connections.NewCommand += NowNewCommand;
+
+            Connections.Things.Add(new IoT("M", "Robot 1", "127.0.0.1", 5555));
+            Connections.Things.Add(new IoT("M", "Robot 2", "127.0.0.1", 5555));
+            Connections.Things.Add(new IoT("M", "Robot 3", "127.0.0.1", 5555));
+            Connections.Things.Add(new IoT("M", "Robot 4", "127.0.0.1", 5555));
+            Connections.Things.Add(new IoT("M", "Robot 5", "127.0.0.1", 5555));
+
+            Connections.Start();
+
+            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
+
+        private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
+        {
+            Connections.Close();
+            Connections.NewCommand -= NowNewCommand;
+        }
+
+        public void NowNewCommand(object s,Command cmd)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                tb_log.Text += ((IoT)s).name +  " : " + cmd.Data + "\n";
+            });
+        }
+        
     }
 }
