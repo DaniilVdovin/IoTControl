@@ -26,11 +26,7 @@ namespace IoTControl
             InitializeComponent();
             Connections.NewCommand += NowNewCommand;
 
-            Connections.Things.Add(new IoT("M", "Robot 1", "127.0.0.1", 5555));
-            Connections.Things.Add(new IoT("M", "Robot 2", "127.0.0.1", 5555));
-            Connections.Things.Add(new IoT("M", "Robot 3", "127.0.0.1", 5555));
-            Connections.Things.Add(new IoT("M", "Robot 4", "127.0.0.1", 5555));
-            Connections.Things.Add(new IoT("M", "Robot 5", "127.0.0.1", 5555));
+            Connections.Things = TeamLoadManager.LoadTeams()[0].IoTs;
 
             Connections.Start();
 
