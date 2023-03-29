@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTControl", "IoTControl.csproj", "{59CAB9A6-C577-4191-A938-9544495A4EB5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiIoT", "..\UiIoT\UiIoT.csproj", "{100F0F16-A8DE-4563-9E03-D4B9C26F6B1D}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{59CAB9A6-C577-4191-A938-9544495A4EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59CAB9A6-C577-4191-A938-9544495A4EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59CAB9A6-C577-4191-A938-9544495A4EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59CAB9A6-C577-4191-A938-9544495A4EB5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{100F0F16-A8DE-4563-9E03-D4B9C26F6B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{100F0F16-A8DE-4563-9E03-D4B9C26F6B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{100F0F16-A8DE-4563-9E03-D4B9C26F6B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
