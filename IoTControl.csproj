@@ -94,9 +94,75 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="Properties\wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="Properties\wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="Properties\wwwroot\lib\jquery\dist\jquery.min.map" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\wwwroot\css\site.css" />
+    <Resource Include="Properties\wwwroot\favicon.ico" />
+    <Content Include="Properties\wwwroot\js\site.js" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="Properties\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="Properties\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <Content Include="Properties\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <Resource Include="Properties\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+    <Content Include="Properties\wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <Content Include="Properties\wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <Content Include="Properties\wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <Content Include="Properties\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <Content Include="Properties\wwwroot\lib\jquery\dist\jquery.js" />
+    <Content Include="Properties\wwwroot\lib\jquery\dist\jquery.min.js" />
+    <Resource Include="Properties\wwwroot\lib\jquery\LICENSE.txt" />
+    <Content Include="UI\WebIoTUi.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Styles\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
