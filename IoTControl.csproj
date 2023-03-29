@@ -126,6 +126,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="UI\WebIoTUi.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Styles\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Properties\wwwroot\css\site.css" />
     <Resource Include="Properties\wwwroot\favicon.ico" />
     <Content Include="Properties\wwwroot\js\site.js" />
