@@ -14,6 +14,10 @@ namespace IoTControl.Core
         public static List<IoT> Things = new List<IoT>();
         public static List<Command> CommandList = new List<Command>();
 
+        public static void Preload()
+        {
+
+        }
         public static void Start()
         {
             foreach (IoT i in Things)
@@ -21,7 +25,6 @@ namespace IoTControl.Core
                 i.SetupUPD();
                 i.Start(new Thread(async () =>
                 {
-
                     bool work = true;
                     _ = i.UDP.SendCommandAsync("#N").Result;
                     while (work)
@@ -35,7 +38,6 @@ namespace IoTControl.Core
                         {
                             AddCommand(i, new Command(){ Data = "UDP ERROR" });
                         }
-                        Thread.Sleep(1000);
                     }
                 }));
             }

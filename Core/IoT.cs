@@ -15,13 +15,21 @@ namespace IoTControl.Core
         public int port;
         public Thread thread;
         public UDP UDP;
+
         public IoT(string type, string name, string hostname, int port)
         {
             this.type = type;
             this.name = name;
             this.hostname = hostname;
             this.port = port;
-        } 
+        }
+        public IoT(string[] data)
+        {
+            this.type = data[0];
+            this.name = data[4];
+            this.hostname = data[2];
+            this.port = int.Parse(data[3]);
+        }
         public void Start(Thread t)
         {
             if(thread != null)

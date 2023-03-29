@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ScrollViewer>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="41*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.ColumnSpan="1">
             <TextBlock x:Name="tb_log" TextWrapping="Wrap" Text=""/>
         </ScrollViewer>
     </Grid>
