@@ -8,28 +8,25 @@
         Title="MainWindow" Height="450" Width="800"
         Background="{StaticResource BacgroundColor}">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="9*"/>
-            <ColumnDefinition Width="41*"/>
-        </Grid.ColumnDefinitions>
-        <UI:CardHolder
-             Grid.Column="0">
-            <ScrollViewer>
-                <TextBlock x:Name="tb_log" TextWrapping="Wrap" Text=""/>
-            </ScrollViewer>
-        </UI:CardHolder>
-        <UI:CardHolder Width="250" Height="150"
-                 Grid.Column="1" 
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Top">
-            <Grid>
-                <Button x:Name="tb_gear" Style="{StaticResource ImageButton_Tool}" 
-                        ToolTip="Синхронизация с базой" VerticalAlignment="Top"
+        <DockPanel>
+            <UI:CardHolder Height="70" DockPanel.Dock="Top">
+                <Grid>
+                    <Button x:Name="tb_gear" Style="{StaticResource ImageButton_Tool}" 
+                        ToolTip="Синхронизация с базой" VerticalAlignment="Center"
                         HorizontalAlignment="Left">
-                    <Image Source="/Sources/Icons/icons8-gear.png"/>
-                </Button>
+                        <Image Source="/Sources/Icons/icons8-gear.png"/>
+                    </Button>
+                </Grid>
+            </UI:CardHolder>
+            <UI:CardHolder Width="150" DockPanel.Dock="Left">
+                <ScrollViewer>
+                    <TextBlock x:Name="tb_log" TextWrapping="Wrap" Text=""/>
+                </ScrollViewer>
+            </UI:CardHolder>
+            <Grid DockPanel.Dock="Right">
+                
             </Grid>
-        </UI:CardHolder>
+        </DockPanel>
         
     </Grid>
 </Window>
