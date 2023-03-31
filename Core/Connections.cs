@@ -4,9 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Windows.Threading;
 
-namespace IoTControl.Core
+namespace UiIoT.Core
 {
     public static class Connections
     {

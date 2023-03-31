@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Windows.Markup;
 using System.Net;
 
-namespace IoTControl.Core
+namespace UiIoT.Core
 {
     public class UDP
     {

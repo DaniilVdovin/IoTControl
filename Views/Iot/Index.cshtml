@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "sd";
+    var rand = new Random();
+ 
+}
+
+@functions {
+    
+
+
+ }
+ @model UiIoT.Models.IoTContext
+
+<div class="container flex-column ">
+    <div class="row g-2 p-3">
+       @foreach (var item in Model.robots)
+        {
+            <div class="col-sm rounded-3">
+                <div class="card w-70">
+                    <div class="card-body">
+                        <h5 class="ugols">@item.name</h5>
+                         <a class="text-black">Тип:@item.type </a>
+                        <a href="/Iot/test" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        
+
+        
+    </div>
+    
+    
+    
+
+
+</div>
+
+
+

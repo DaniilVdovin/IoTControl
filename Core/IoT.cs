@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IoTControl.Core
+
+namespace UiIoT.Core
 {
-    public class IoT
+    public  class IoT: IOfThings
     {
-        public string type;
-        public string name;
-        public string hostname; 
-        public int port;
-        public Thread thread;
-        public UDP UDP;
+  
+
+        public string type { get ; set; }
+        public string name { get; set; }
+        public string hostname { get; set; }
+        public int port { get; set; }
+        public Thread thread { get ; set; }
+        public UDP UDP { get; set; }
 
         public IoT(string type, string name, string hostname, int port)
         {

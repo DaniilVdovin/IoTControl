@@ -4,9 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Shapes;
-
-namespace IoTControl.Core
+namespace UiIoT.Core
 {
     public static class TeamLoadManager
     {
