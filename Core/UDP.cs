@@ -20,6 +20,7 @@ namespace UiIoT.Core
         {
             udpClient.Close();
             udpClient.Connect(hostname, port);
+            
         }
         public void Close() => udpClient.Close();
         public async Task<Command> ReceiveCommandAsync()
