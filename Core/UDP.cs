@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
-using System.Net.Sockets;
-using System.Windows.Markup;
-using System.Net;
 
 namespace UiIoT.Core
 {
@@ -20,7 +14,7 @@ namespace UiIoT.Core
         {
             udpClient.Close();
             udpClient.Connect(hostname, port);
-            
+
         }
         public void Close() => udpClient.Close();
         public async Task<Command> ReceiveCommandAsync()

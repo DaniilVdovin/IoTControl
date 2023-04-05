@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-namespace UiIoT.Core
+﻿namespace UiIoT.Core
 {
     public static class TeamLoadManager
     {
         private static Team LoadFile(string path)
         {
             Team temp = new Team();
-            temp.Name = path.Replace("_","").Split('.')[0];
+            temp.Name = path.Replace("_", "").Split('.')[0];
             temp.Path = Environment.CurrentDirectory + "/Teams/" + path;
             using (var reader = File.OpenText(path))
             {
@@ -24,7 +18,7 @@ namespace UiIoT.Core
         public static List<Team> LoadTeams()
         {
             List<Team> teams = new List<Team>();
-            foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory+"/Teams/", "_*.txt", SearchOption.AllDirectories))
+            foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory + "/Teams/", "_*.txt", SearchOption.AllDirectories))
             {
                 teams.Add(LoadFile(file));
                 Console.WriteLine(file);

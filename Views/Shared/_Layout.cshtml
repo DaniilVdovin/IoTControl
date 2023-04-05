@@ -44,9 +44,18 @@
             &copy; 2023 - UiIoT - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="module" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="module" src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script type="module" src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+    <script src="~/lib/chart.js/dist/chart.js"></script>
+    <script src="~/lib/chart.js/dist/chart.umd.js"></script>
+    
+    <script defer src="~/js/index.js" type="module"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

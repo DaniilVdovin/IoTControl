@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-
-namespace UiIoT.Core
+﻿namespace UiIoT.Core
 {
     public static class Connections
     {
@@ -35,7 +28,7 @@ namespace UiIoT.Core
                         }
                         catch (Exception)
                         {
-                            AddCommand(i, new Command(){ Data = "UDP ERROR" });
+                            AddCommand(i, new Command() { Data = "UDP ERROR" });
                         }
                     }
                 }));

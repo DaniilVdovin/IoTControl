@@ -63,29 +63,7 @@
         <button>Отправить</button>
     </div>
     </div>
-    <script>
-        const hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl("/chat")
-            .build();
-
-        // получение сообщения от сервера
-        hubConnection.on("Receive", function (user) {
-
-            document.getElementById("response").innerText = "Имя: " + user.name + " Возраст: " + user.age;
-        });
-
-        // отправка сообщения на сервер
-        document.getElementById("sendBtn").addEventListener("click", function (e) {
-            let name = document.getElementById("name").value;
-            let age = document.getElementById("age").value;
-
-            hubConnection.invoke("Send", { "name": name, "age": parseInt(age) });
-            document.getElementById("name").value = "";
-            document.getElementById("age").value = "";
-        });
-
-        hubConnection.start();
-    </script>
+  
 
 </div>
 

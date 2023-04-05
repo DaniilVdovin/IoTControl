@@ -1,6 +1,4 @@
-﻿using UiIoT.Core;
-
-namespace UiIoT.Models
+﻿namespace UiIoT.Models
 {
     public class IoTContext
     {

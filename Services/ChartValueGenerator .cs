@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using UiIoT.Controllers;
 using UiIoT.Hubs;
-using UiIoT.Models;
-using static UiIoT.Models.BufferExtensions;
 
 namespace UiIoT.Services
 {
@@ -22,7 +19,7 @@ namespace UiIoT.Services
             while (!stoppingToken.IsCancellationRequested)
             {
                 await _hub.Clients.All.SendAsync(
-                    "addChartData",
+                    "newData",
                     _data.AddNewRandomPoint(),
                     cancellationToken: stoppingToken
                 );

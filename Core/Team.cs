@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace UiIoT.Core
+﻿namespace UiIoT.Core
 {
     public class Team
     {
@@ -13,7 +6,8 @@ namespace UiIoT.Core
         public string Path { get; set; }
         public List<IoT> IoTs { get; set; }
 
-        public Team() {
+        public Team()
+        {
             IoTs = new List<IoT>();
         }
     }

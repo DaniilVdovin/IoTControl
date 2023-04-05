@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.AspNetCore.SignalR.Client;
-using System.Diagnostics;
-using System.Text;
 using UiIoT.Core;
 using UiIoT.Hubs;
 using UiIoT.Models;
@@ -33,12 +30,12 @@ namespace UiIoT.Controllers
             robot2.name = "гена";
             //Command data = await udp_listener();
             //Debug.WriteLine( data.Data + robot2.name);
-         
-                
-               
 
 
-            
+
+
+
+
 
             robot1.name = "Жора";
             ioTContext.robots.Add(robot1);

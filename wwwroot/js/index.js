@@ -1,4 +1,5 @@
-﻿const data = JSON.parse(document.getElementById('data').innerHTML);
+﻿
+const data = JSON.parse(document.getElementById('data').innerHTML);
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'line',
@@ -32,7 +33,7 @@ connection.onclose(async () => {
     await start();
 });
 
-connection.on("addChartData", function (point) {
+connection.on("newData", function (point) {
 
     myChart.data.labels.push(point.label);
     myChart.data.datasets.forEach((dataset) => {

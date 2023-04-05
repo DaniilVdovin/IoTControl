@@ -1,23 +1,17 @@
-﻿<script src="~/lib/microsoft-signalr/signalr.min.js"></script>
-<script src="~/lib/chart.js/dist/chart.js"></script>
-<script defer src="~/js/robots.js"></script>
-@using UiIoT.Services
-@using UiIoT.Models
-@inject Buffer<BufferExtensions.Point> Buffer
+﻿@using UiIoT.Services
+@inject Buffer<Point> buffer
+
+@model UiIoT.Models.IoTContext
 @{
     ViewData["Title"] = "sd";
-    var labels = Buffer.Select(x => x.Label);
-    var data = Buffer.Select(x => x.Value);
- 
+    var labels = buffer.Select(x => x.Label);
+    var data =   buffer.Select(x => x.Value);
+    
 }
 
 
-@functions {
-    
 
 
- }
- @model UiIoT.Models.IoTContext
 
 <div id="ss" class="container flex-column ">
     <div class="row g-2 p-3">
@@ -47,8 +41,8 @@
                 new
                 {
                     labels,
-                    limit = Buffer.MaxCapacity.GetValueOrDefault(10),
-                    url = "/robots",
+                    limit = buffer.MaxCapacity.GetValueOrDefault(10),
+                    url = "/iot"+"/robots",
                     datasets = new object[]
                     {
                         new

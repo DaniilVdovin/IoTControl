@@ -1,22 +1,22 @@
 using Microsoft.AspNetCore.Http.Connections;
-using Microsoft.AspNetCore.SignalR;
 using UiIoT.Hubs;
-using UiIoT.Models;
-using static UiIoT.Models.BufferExtensions;
+using UiIoT.Services;
+using static UiIoT.Services.BufferExtensions;
 
 namespace UiIoT
 {
     public class Program
-	{
-		public static void Main(string[] args)
-		{
-			
-			var builder = WebApplication.CreateBuilder(args);
+    {
+        public static void Main(string[] args)
+        {
 
-			// Add services to the container.
-			builder.Services.AddControllersWithViews();
-			builder.Services.AddSignalR();
-            builder.Services.AddSingleton(_ => {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
+            builder.Services.AddSignalR();
+            builder.Services.AddSingleton(_ =>
+            {
                 var buffer = new Buffer<Point>(10);
                 // start with something that can grow
                 for (var i = 0; i < 7; i++)
@@ -24,36 +24,48 @@ namespace UiIoT
 
                 return buffer;
             });
+            builder.Services.AddHostedService<ChartValueGenerator>();
+            builder.Services.AddCors(options =>
+             {
+                 options.AddPolicy(name: "robots",
+                     builder =>
+                     {
+                         builder.WithOrigins("https://localhost:44323", "https://localhost:44476", "https://localhost:7231")
+                         .AllowAnyMethod()
+                         .AllowAnyHeader();
+                     });
+             });
 
             var app = builder.Build();
 
-			// Configure the HTTP request pipeline.
-			if (!app.Environment.IsDevelopment())
-			{
-				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
-			}
-			
-			app.UseHttpsRedirection();
-			app.UseStaticFiles();
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
-			app.UseRouting();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
-			app.UseAuthorization();
-			
-			app.MapControllerRoute(
-				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}");
-			
-			app.MapHub<RandomDataHub>("/iot/robots", options =>
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapHub<RandomDataHub>("/iot/" +
+                RandomDataHub.url, options =>
             {
                 options.Transports =
                     HttpTransportType.WebSockets |
                     HttpTransportType.LongPolling;
             });
-			app.Run();
-		}
+            app.Run();
+        }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
            Host.CreateDefaultBuilder(args)
                .ConfigureWebHostDefaults(webBuilder =>
