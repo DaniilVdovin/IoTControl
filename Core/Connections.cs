@@ -22,23 +22,25 @@ namespace IoTControl.Core
         {
             foreach (IoT i in Things)
             {
-                i.SetupUPD();
+				i.SetupUPD();
                 i.Start(new Thread(async () =>
                 {
                     bool work = true;
-                    _ = i.UDP.SendCommandAsync("#N").Result;
+                    _ = i.UDP.SendCommandAsync("r").Result;
                     while (work)
                     {
                         try
                         {
-                            Command cmd = i.UDP.ReceiveCommandAsync().Result;
+                            Command cmd = i.UDP.ReceiveCommandAsync(i).Result;
                             if (cmd != null) AddCommand(i, cmd);
                         }
-                        catch (Exception)
+                        catch (Exception e)
                         {
-                            AddCommand(i, new Command(){ Data = "UDP ERROR" });
+                            Debug.WriteLine(e.Message);
+                            /*AddCommand(i, new Command(){ Data = e.Message });*/
                         }
-                    }
+						Thread.Sleep(500);// иначе виснет. попробую починить потом
+					}
                 }));
             }
         }
@@ -46,7 +48,7 @@ namespace IoTControl.Core
         {
             foreach (IoT i in Things)
             {
-                _ = i.UDP.SendCommandAsync("#C").Result;
+                _ = i.UDP.SendCommandAsync("s").Result;
                 i.thread.Abort();
                 i.UDP.Close();
             }

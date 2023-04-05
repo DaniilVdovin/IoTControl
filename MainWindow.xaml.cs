@@ -1,6 +1,7 @@
 ﻿using IoTControl.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,8 +26,8 @@ namespace IoTControl
         {
             InitializeComponent();
             Connections.NewCommand += NowNewCommand;
-
-            Connections.Things = TeamLoadManager.LoadTeams()[0].IoTs;
+			Debug.WriteLine("qeweqwewqqwe");
+			Connections.Things = TeamLoadManager.LoadTeams()[0].IoTs;
 
             Connections.Start();
 
@@ -43,7 +44,7 @@ namespace IoTControl
         {
             Dispatcher.Invoke(() =>
             {
-                tb_log.Text += ((IoT)s).name +  " : " + cmd.Data + "\n";
+                tb_log.Text += cmd.Data + "\n";
             });
         }
         
