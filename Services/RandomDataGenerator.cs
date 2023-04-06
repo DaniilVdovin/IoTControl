@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using UiIoT.Hubs;
 
+
 namespace UiIoT.Services
 {
-    public class ChartValueGenerator : BackgroundService
+    public class RandomDataGenerator : BackgroundService
     {
         private readonly IHubContext<RandomDataHub> _hub;
         private readonly Buffer<Point> _data;
 
-        public ChartValueGenerator(IHubContext<RandomDataHub> hub, Buffer<Point> data)
+        public RandomDataGenerator(IHubContext<RandomDataHub> hub, Buffer<Point> data)
         {
             _hub = hub;
             _data = data;
@@ -23,8 +24,13 @@ namespace UiIoT.Services
                     _data.AddNewRandomPoint(),
                     cancellationToken: stoppingToken
                 );
+                await _hub.Clients.All.SendAsync(
+                    "randomNumbers",
+                    _data.AddNewRandomPoint(),
+                    cancellationToken: stoppingToken);
 
                 await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
+
             }
         }
     }

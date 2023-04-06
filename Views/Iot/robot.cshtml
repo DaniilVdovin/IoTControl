@@ -1,9 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using UiIoT.Services
+@using Microsoft.AspNetCore.SignalR.Client
+@inject Buffer<Point> buffer
 @{
+    ViewData["Title"] = "sd";
+    var labels = buffer.Select(x => x.Label);
+    var data = buffer.Select(x => x.Value);
+    var connection = new HubConnectionBuilder()
+            .WithUrl("iot/robot")
+            .Build();
+    async Task ss()
+    {
+        connection.On<int>("randomNumbers", (int r) =>
+        {
+            
+        });
+    }
 }
+@functions{
+    
+}
+
 <div class="container">
+
     <div class="row">
         <div class="col-sm-4">
             <div class="overflow-auto">
@@ -14,57 +32,108 @@
                 </ul>
             </div>
         </div>
-        <div class="col-sm-2" style="padding-left:20px">
-        <h2>Curent data</h2>
-        <form>
-            <div class="form-group">
-                <div style="padding:4px">
-                    <label for="exampleFormControlInput1">X</label>
-                    <input type="number" class="form-control" id="exampleFormControlInput1">
-                    <label for="exampleFormControlInput1">Y</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
-                    <label for="exampleFormControlInput1">Z</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1">
+        <div  style="padding-left:20px">
+            <h2>Robot Form</h2>
+                <form id="robot_form">
+                
+                    <div class="form-group row ">
+                    <a>Текст</a>
+                        <div class="col-sm" style="padding:4px">
+                            <label for="exampleFormControlInput1">X</label>
+                            <input type="number" class="form-control" id="exampleFormControlInput1">
+                            <label for="exampleFormControlInput1">Y</label>
+                            <input type="number" class="form-control col-1" id="exampleFormControlInput1">
+                            <label for="exampleFormControlInput1">Z</label>
+                            <input type="number" class="form-control col-1" id="exampleFormControlInput1">
+                        </div>
+                    <div class="col-sm" style="padding:4px">
+                        <a>Текст</a>
+                        <div style="padding:4px">
+                           
+                            @for (int i = 1; i < 7; i++)
+                            {
+                                <label for="exampleFormControlInput1" style="padding-top:5%">L @i</label>
+                                <input type="number" class="form-control col-1" id="exampleFormControlInput1">
+
+                            }
+
+
+                        </div>
+
+                        </div>
+                    <div class="col-sm" style="padding:4px">
+                        <a>Текст</a>
+                        <div style="padding:4px">
+                            
+                            @for (int i = 1; i < 7; i++)
+                                            {
+                                <label for="exampleFormControlInput1" style="padding-top:5%">M @i</label>
+                                <input type="number" class="form-control col-1" id="exampleFormControlInput1">
+
+                            }
+                           
+                            
+                        </div>
+
+                    </div>
+                    </div>
+                </form>
+            <button>Отправить</button>
+            
+        
+
+                    
+                    
+            
+            <h2>Camera</h2>
+            <form>
+                <div class="form-group">
+                    <div style="padding:4px">
+                        <label for="exampleFormControlInput1" style="padding-top:5%">T</label>
+                        <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
+                        <label for="exampleFormControlInput1">G</label>
+                        <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
+                        <label for="exampleFormControlInput1">V</label>
+                        <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
+                    </div>
+
+
+
 
                 </div>
-                <div style="padding:4px">
-                    <label for="exampleFormControlInput1" style="padding-top:5%">T</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
-                    <label for="exampleFormControlInput1">G</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
-                    <label for="exampleFormControlInput1">V</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
-                </div>
-
-
-
-                <div style="padding:4px">
-                    <label for="exampleFormControlInput1" style="padding-top:5%">D</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
-                    <label for="exampleFormControlInput1">D1</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
-                    <label for="exampleFormControlInput1">TEXT</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1">
-                </div>
-
-                <div style="padding:4px">
-                    <label for="exampleFormControlInput1" style="padding-top:5%">L1</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1">
-                    <label for="exampleFormControlInput1">L2</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
-                    <label for="exampleFormControlInput1">L3</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1">
-                    <label for="exampleFormControlInput1">L4</label>
-                    <input type="number" class="form-control col-1" id="exampleFormControlInput1" >
-                </div>
-
+            </form>
+            <button>Отправить</button>
+        </div >
+        <div class="col-sm-4">
+            <div style="width: 400px; height: 400px">
+                <canvas id="myChart" width="400" height="400"></canvas>
             </div>
-        </form>
-        <button>Отправить</button>
-    </div>
-    </div>
-  
+            <script id="data" type="application/json">
+                @Json.Serialize(
+                    new
+                    {
+                        labels,
+                        limit = buffer.MaxCapacity.GetValueOrDefault(10),
+                        url = "/iot"+"/robots",
+                        datasets = new object[]
+                        {
+                            new
+                            {
+                                label = "SignalR Dataset",
+                                data,
+                                fill = false,
+                                borderColor = "rgb(75, 192, 192)",
+                                tension = 0.1
+                            }
+                        }
+                    })
+            </script>
+        </div>
 
+    </div>
+    <script type="module" src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script type="module" src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script defer src="~/js/robot.js" type="module"></script>
 </div>
 
 

@@ -24,7 +24,7 @@ namespace UiIoT
 
                 return buffer;
             });
-            builder.Services.AddHostedService<ChartValueGenerator>();
+            builder.Services.AddHostedService<RandomDataGenerator>();
             builder.Services.AddCors(options =>
              {
                  options.AddPolicy(name: "robots",

@@ -1,18 +1,4 @@
-﻿@using UiIoT.Services
-@inject Buffer<Point> buffer
-
-@model UiIoT.Models.IoTContext
-@{
-    ViewData["Title"] = "sd";
-    var labels = buffer.Select(x => x.Label);
-    var data =   buffer.Select(x => x.Value);
-    
-}
-
-
-
-
-
+﻿@model UiIoT.Models.IoTContext
 <div id="ss" class="container flex-column ">
     <div class="row g-2 p-3">
        @foreach (var item in Model.robots)
@@ -32,31 +18,7 @@
 
         
     </div>
-    <div>
-        <div style="width: 400px; height: 400px">
-            <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
-        <script id="data" type="application/json">
-            @Json.Serialize(
-                new
-                {
-                    labels,
-                    limit = buffer.MaxCapacity.GetValueOrDefault(10),
-                    url = "/iot"+"/robots",
-                    datasets = new object[]
-                    {
-                        new
-                        {
-                            label = "SignalR Dataset",
-                            data,
-                            fill = false,
-                            borderColor = "rgb(75, 192, 192)",
-                            tension = 0.1
-                        }
-                    }
-                })
-        </script>
-    </div>
+   
     
 
 
