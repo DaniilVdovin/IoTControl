@@ -9,14 +9,18 @@ namespace UiIoT.Services
         private readonly IHubContext<RandomDataHub> _hub;
         private readonly Buffer<Point> _data;
 
+
         public RandomDataGenerator(IHubContext<RandomDataHub> hub, Buffer<Point> data)
         {
             _hub = hub;
             _data = data;
+
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 await _hub.Clients.All.SendAsync(
@@ -26,12 +30,16 @@ namespace UiIoT.Services
                 );
                 await _hub.Clients.All.SendAsync(
                     "randomNumbers",
-                    _data.AddNewRandomPoint(),
+                    randomString,
                     cancellationToken: stoppingToken);
 
                 await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
 
             }
+        }
+       private double randomString()
+        {
+            return new Random().NextDouble(); ;
         }
     }
 }

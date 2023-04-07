@@ -1,20 +1,31 @@
 ﻿@using UiIoT.Services
 @using Microsoft.AspNetCore.SignalR.Client
 @inject Buffer<Point> buffer
+
+
 @{
+
     ViewData["Title"] = "sd";
+    List<string> datas = new List<string>();
     var labels = buffer.Select(x => x.Label);
     var data = buffer.Select(x => x.Value);
     var connection = new HubConnectionBuilder()
-            .WithUrl("iot/robot")
+            .WithUrl("https://localhost:44323/iot/robot")
             .Build();
-    async Task ss()
-    {
-        connection.On<int>("randomNumbers", (int r) =>
-        {
-            
-        });
-    }
+    bool IsConnected = connection.State == HubConnectionState.Connected;
+    connection.On("randomNumbers", (string a) =>
+                    {
+                        
+                        datas.Add(a);
+                        
+                        
+                    })
+    ;
+
+     connection.StartAsync();
+
+
+
 }
 @functions{
     
@@ -25,10 +36,13 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="overflow-auto">
-                <ul class="list-group list-group-flush" style="border: 1px solid black">
-                    @*
-                     SignalR поток 
-                    *@
+                <ul class="list-group list-group-flush" style="border: 1px solid black" onload="ss">
+                   
+                    @foreach (var i in datas)
+                    {
+                        <li>@i</li>
+                    }
+
                 </ul>
             </div>
         </div>
@@ -56,8 +70,6 @@
                                 <input type="number" class="form-control col-1" id="exampleFormControlInput1">
 
                             }
-
-
                         </div>
 
                         </div>
@@ -131,6 +143,7 @@
         </div>
 
     </div>
+    
     <script type="module" src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
     <script type="module" src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script defer src="~/js/robot.js" type="module"></script>

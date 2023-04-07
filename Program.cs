@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http.Connections;
 using UiIoT.Hubs;
 using UiIoT.Services;
-using static UiIoT.Services.BufferExtensions;
+
 
 namespace UiIoT
 {
