@@ -17,8 +17,6 @@ namespace IoTControl.Core
 		IPEndPoint groupEP;
 		public UDP(string hostname, int port)
         {
-            /*this.hostname = hostname;
-			this.port = hostname;*/
 			udpClient = new UdpClient(hostname, port);
 			groupEP = new IPEndPoint(IPAddress.Parse(hostname), 8888);
 		}
@@ -28,20 +26,20 @@ namespace IoTControl.Core
             udpClient.Connect(hostname, port);
         }
         public void Close() => udpClient.Close();
-		public async Task<Command> ReceiveCommandAsync(IoT i) // я из будущего, попробуй передать объект и сделать отдельный listener и добавь close() чтобы исключить ошибку 
+		public async Task<Command> ReceiveCommandAsync(IoT i)
 		{
 			UdpClient listener = new UdpClient(i.port);
-            var response = await listener.ReceiveAsync(); //ref groupEP
+            var response = await listener.ReceiveAsync();
             Debug.WriteLine(response.RemoteEndPoint.Address.ToString());
 
 			if (response.RemoteEndPoint.Address.ToString() == i.hostname) {
 				Debug.WriteLine(response.Buffer);
 				listener.Close();
-				return (new Command(response, groupEP)); //  Task.FromResult
+                _ = Thingworx.Connect(response, i);
+                return (new Command(response, groupEP));
 			}
-            Debug.WriteLine("нет");
 			listener.Close();
-			return null; //  Task.FromResult
+			return null;
 
 		}
         public async Task<bool> SendCommandAsync(string command)

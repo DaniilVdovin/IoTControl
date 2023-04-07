@@ -14,7 +14,8 @@ namespace IoTControl.Core
         public string name;
         public string hostname; 
         public int port;
-        public Thread thread;
+		public string service;
+		public Thread thread;
         public UDP UDP;
 
         public IoT(string type, string name, string hostname, int port)
@@ -30,7 +31,10 @@ namespace IoTControl.Core
             this.name = data[4];
             this.hostname = data[2];
             this.port = int.Parse(data[3]);
+            this.service = data[5];
+
         }
+       
         public void Start(Thread t)
         {
             if(thread != null)

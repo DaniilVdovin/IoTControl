@@ -23,6 +23,8 @@
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top">
             <Grid>
+                <TextBox x:Name="tb_serverIP" HorizontalAlignment="Left" Margin="110,10,0,0" TextWrapping="Wrap" Text="ServerIP:port" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="tb_appKey" HorizontalAlignment="Left" Margin="110,30,0,0" TextWrapping="Wrap" Text="AppKey" VerticalAlignment="Top" Width="120"/>
                 <Button x:Name="tb_gear" Style="{StaticResource ImageButton_Tool}" 
                         ToolTip="Синхронизация с базой" VerticalAlignment="Top"
                         HorizontalAlignment="Left">
@@ -30,6 +32,24 @@
                 </Button>
             </Grid>
         </UI:CardHolder>
-        
+        <UI:CardHolder Width="250" Height="300"
+                 Grid.Column="2" 
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="81*"/>
+                    <ColumnDefinition Width="149*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Width="70" HorizontalAlignment="Left" x:Name="Container_parameters" Grid.Column="1" Margin="79,0,0,0"/>
+                <ComboBox x:Name="ThingsList" Width="90" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.ColumnSpan="2" SelectedIndex = "0" SelectionChanged="ThingsList_SelectionChanged"/>
+                <Button x:Name="tb_SendDataTo" 
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left" Margin="27,35,0,0" Click="SendDataToRobot" Grid.ColumnSpan="2">Отправка
+                </Button>
+            </Grid>
+        </UI:CardHolder>
+
+
     </Grid>
 </Window>

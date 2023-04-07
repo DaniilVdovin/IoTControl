@@ -21,7 +21,8 @@
                          Padding="5,5,5,5"
                          Background="{TemplateBinding Background}">
                         <ContentPresenter x:Name="ButtonContentPresenter"
-                                VerticalAlignment="Center"  
+                                VerticalAlignment="Center"
+
                                 HorizontalAlignment="Center">
                             <ContentPresenter.Resources>
                             </ContentPresenter.Resources>

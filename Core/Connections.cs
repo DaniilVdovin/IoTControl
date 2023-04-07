@@ -37,9 +37,8 @@ namespace IoTControl.Core
                         catch (Exception e)
                         {
                             Debug.WriteLine(e.Message);
-                            /*AddCommand(i, new Command(){ Data = e.Message });*/
                         }
-						Thread.Sleep(500);// иначе виснет. попробую починить потом
+						Thread.Sleep(500);
 					}
                 }));
             }
