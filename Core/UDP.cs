@@ -1,16 +1,23 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net.Sockets;
 using System.Text;
 
 namespace UiIoT.Core
 {
-    public class UDP
+	public class UDP
     {
-        UdpClient udpClient;
-        public UDP(string hostname, int port)
+		UdpClient udpClient;
+		IPEndPoint groupEP;
+		public UDP(string hostname, int port)
         {
-            udpClient = new UdpClient(hostname, port);
-        }
-        public void Reconect(string hostname, int port)
+			udpClient = new UdpClient(hostname, port);
+			groupEP = new IPEndPoint(IPAddress.Parse(hostname), 8888);
+		}
+		public void Reconect(string hostname, int port)
         {
             udpClient.Close();
             udpClient.Connect(hostname, port);
