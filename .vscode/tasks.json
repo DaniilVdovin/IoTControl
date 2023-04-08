@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "autobuild",
+			"path": "wwwroot/lib/chart.js",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: autobuild - wwwroot/lib/chart.js",
+			"detail": "rollup -c -w"
+		}
+	]
+}
