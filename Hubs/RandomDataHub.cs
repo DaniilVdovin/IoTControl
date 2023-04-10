@@ -5,8 +5,11 @@ namespace UiIoT.Hubs
     public class RandomDataHub : Hub
     {
         public static string url = "robots";
-          
         
+        public async Task sendRobotData()
+        {
+            
+        }
 
     }
 

@@ -28,18 +28,11 @@ namespace UiIoT.Services
                     _data.AddNewRandomPoint(),
                     cancellationToken: stoppingToken
                 );
-                await _hub.Clients.All.SendAsync(
-                    "randomNumbers",
-                    randomString,
-                    cancellationToken: stoppingToken);
+               
 
                 await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
 
             }
-        }
-       private double randomString()
-        {
-            return new Random().NextDouble(); ;
         }
     }
 }

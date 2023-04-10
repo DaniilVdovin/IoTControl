@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.Connections;
 using UiIoT.Hubs;
+using UiIoT.Models;
 using UiIoT.Services;
 
 
@@ -24,7 +25,9 @@ namespace UiIoT
 
                 return buffer;
             });
+            
             builder.Services.AddHostedService<RandomDataGenerator>();
+            builder.Services.AddHostedService<RobotDataSender>();
             builder.Services.AddCors(options =>
              {
                  options.AddPolicy(name: "robots",
