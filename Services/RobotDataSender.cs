@@ -8,14 +8,16 @@ namespace UiIoT.Services
     {
         private readonly IHubContext<RandomDataHub> _hub;
 
-        private IoTContext ioTContext;
+        private IoTContext? ioTContext = new IoTContext();
             
             
         //суета такая это заглущка сюда данные с сервера
         private RobotViewModel ViewModel = new RobotViewModel();
-        public RobotDataSender()
+        //TODO: разобраться откуда идут сюда данные
+        public RobotDataSender(IHubContext<RandomDataHub> hub)
         {
-            ioTContext = new IoTContext();
+            _hub = hub;
+
             ioTContext.robots.Add(ViewModel);
         }
   
@@ -24,7 +26,7 @@ namespace UiIoT.Services
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                await _hub.Clients.All.SendAsync("das_send_context",this.ioTContext);
+                await _hub.Clients.All.SendAsync("das_send_context", ioTContext);
                 await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
             }
         }

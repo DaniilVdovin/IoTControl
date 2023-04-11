@@ -48,6 +48,7 @@ connection.on("newData", function (point) {
         });
         myChart.update();
     }
+
 });
 
 // Start the connection.
