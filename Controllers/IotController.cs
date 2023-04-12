@@ -35,7 +35,7 @@ namespace UiIoT.Controllers
         
         public IotController(IHubContext<RandomDataHub> randomdatahub)
         {
-            pseudodata();
+           
 
         }
         public async Task<Command> udp_listener()
@@ -47,7 +47,7 @@ namespace UiIoT.Controllers
 
         public async Task<IActionResult> Index()
         {
-            
+            pseudodata();
             //TODO: take robotList
             return View(ioTContext);
         }
