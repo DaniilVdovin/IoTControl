@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="ComboBoxToggleButton"
+                 TargetType="{x:Type ToggleButton}">
+        <Setter Property="Control.Foreground" Value="Black" />
+        <Setter Property="Control.Background" Value="LightPink" />
+        <Setter Property="Control.BorderThickness" Value="1" />
+        <Setter Property="IsChecked" Value="False" />
+
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="Pink"/>
+                <Setter Property="Content" Value="Receive data"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="False">
+                <Setter Property="Background" Value="Pink"/>
+                <Setter Property="Content" Value="Not receive data"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>

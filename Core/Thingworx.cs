@@ -10,13 +10,17 @@ using System.Windows.Markup;
 using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Ink;
+using System.Text.Json.Serialization;
+using System.Xml.Linq;
+using System.Text.Json.Nodes;
+using System.Runtime.CompilerServices;
 
 namespace IoTControl.Core
 {
 	internal class Thingworx
 	{
 		
-		public static async Task<string> Connect(System.Net.Sockets.UdpReceiveResult dataFromRobots, IoT things)
+		public static async Task<JsonObject> Connect(System.Net.Sockets.UdpReceiveResult dataFromRobots, IoT things)
 		{
 			// Примерный вид данных приходящих с робота - [M:6:0:32:2574:1756:2231:1152:641:550#T:6:0:32:44:43:46:43:48:0#L:6:0:32:2041:2226:2088:2070:2080:2048#]
 			// Создаем объект, который будем отправлять на ThingWorx
@@ -28,9 +32,10 @@ namespace IoTControl.Core
 			switch (things.type)
 			{
 				case "P":
+				case "P1": //роботы. Отличаются наличием N, в роботах с 1 он есть (сейчас это не актуально, потому что новая прошивка сделала всех роботов типом без 1)
+					data = GetRobotsData(subs, data); break;
 				case "M":
 				case "M1":
-				case "P1": //роботы. Отличаются наличием N, в роботах с 1 он есть (сейчас это не актуально, потому что новая прошивка сделала всех роботов типом без 1)
 					data = GetRobotsData(subs, data); break;
 				case "R":
 				case "R1":
@@ -60,24 +65,31 @@ namespace IoTControl.Core
 			var content = new StringContent(json, Encoding.UTF8, "application/json");
 			var response = await client.PostAsync($"http://192.168.0.250:8080/Thingworx/Things/{things.name}/Services/{things.service}", content);
 			var responseContent = await response.Content.ReadAsStringAsync();
-			return null;
+			return JsonSerializer.Deserialize<JsonObject>(responseContent);
 		}
 
 		private static Dictionary<string, string> GetRobotsData(string[] Subs, Dictionary<string, string> Data) {
 
+			Debug.WriteLine(Subs[0].Length);
 				for (int i = 0; i < Subs.Length - 1; i++)
 				{
 					var sub = Subs[i].Split(':');
-
 					for (int j = 4; j <= 9; j++)
 					{
-						Data.Add(sub[0].ToLower() + (j - 3), sub[j]);
-						Debug.WriteLine(Data.ToString());
+					try
+						{
+							Data.Add(sub[0].ToLower() + (j - 3), sub[j]);
 
+						}
+					catch
+						{
+							Data.Add(sub[0].ToLower() + (j - 3), "0");
+
+						}
 					}
 				}
 
-				Data.Add("c", Subs[1].Split(':')[2]); // видимо, с последним патчем прошивки робота он перестал приходить(или никогда не приходил (_　_)。゜zｚＺ )
+				Data.Add("c", Subs[1].Split(':')[1]); // видимо, с последним патчем прошивки робота он перестал приходить(или никогда не приходил (_　_)。゜zｚＺ )
 				Data.Add("s", Subs[1].Split(':')[2]);
 				Data.Add("n", Subs[2].Split(':')[3]);
 

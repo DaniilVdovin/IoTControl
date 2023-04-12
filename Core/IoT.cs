@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -11,14 +13,19 @@ namespace IoTControl.Core
     public class IoT
     {
         public string type;
-        public string name;
+		public string firstLetter; // первая буква в пакете управления
+		public string name;
         public string hostname; 
         public int port;
 		public string service;
 		public Thread thread;
         public UDP UDP;
+		Dictionary<string, string> ThingMonitoring = new Dictionary<string, string>();
+		Dictionary<string, string> ThingControl = new Dictionary<string, string>();
 
-        public IoT(string type, string name, string hostname, int port)
+		// надо добавить переменную которая будет хранить пришедшие ей данные, тогда будет меньше проблем ToDictionary
+
+		public IoT(string type, string name, string hostname, int port)
         {
             this.type = type;
             this.name = name;
@@ -43,5 +50,12 @@ namespace IoTControl.Core
             thread.Start();
         }
         public void SetupUPD() => UDP = new UDP(hostname,port);
-    }
+
+        private void TemplateFill(string type)
+		{
+			
+
+		}
+
+	}
 }

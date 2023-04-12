@@ -35,8 +35,8 @@ namespace IoTControl.Core
 			if (response.RemoteEndPoint.Address.ToString() == i.hostname) {
 				Debug.WriteLine(response.Buffer);
 				listener.Close();
-                _ = Thingworx.Connect(response, i);
-                return (new Command(response, groupEP));
+                var temp = Thingworx.Connect(response, i);
+                return (new Command(response, groupEP, temp, i));
 			}
 			listener.Close();
 			return null;
