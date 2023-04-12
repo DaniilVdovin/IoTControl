@@ -12,8 +12,8 @@ namespace UiIoT.Controllers
         private Command comm = new Command();
         private IoTContext ioTContext = new IoTContext();
         private readonly IHubContext<RandomDataHub> _randomdatahub;
-        RobotViewModel robot1 = new RobotViewModel();
-        RobotViewModel robot2 = new RobotViewModel();
+        IoT robot1 = new IoT("s","s","s",20);
+        IoT robot2 = new IoT("a", "a", "a", 20);
         private void pseudodata()
         {
             robot2.name = "гена";
@@ -21,9 +21,9 @@ namespace UiIoT.Controllers
             ioTContext.robots.Add(robot1);
             ioTContext.robots.Add(robot2);
         }
-        private RobotViewModel take_by_name(IoTContext ioTContext, string name)
+        private IoT take_by_name(IoTContext ioTContext, string name)
         {
-            foreach (RobotViewModel robot in ioTContext.robots)
+            foreach (IoT robot in ioTContext.robots)
             {
                 if (robot.name == name)
                 {
@@ -54,7 +54,7 @@ namespace UiIoT.Controllers
 
         public IActionResult Robot(string name)
         {
-            RobotViewModel data = take_by_name(ioTContext, name);
+            IoT data = take_by_name(ioTContext, name);
             if (data is not null)
                 return View(data);
             else

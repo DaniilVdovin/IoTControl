@@ -2,11 +2,11 @@
 using System.Text;
 using System.Text.Json;
 using System.Diagnostics;
-using UiIoT.Core;
+using UiIoT.Models;
 
 namespace IoTControl.Core
 {
-	internal class Thingworx
+    internal class Thingworx
 	{
 		
 		public static async Task<string> Connect(System.Net.Sockets.UdpReceiveResult dataFromRobots, IoT things)
@@ -96,7 +96,5 @@ namespace IoTControl.Core
 			return Data;
 		}
 	}
-
-
-	}
+}
 

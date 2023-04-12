@@ -12,7 +12,7 @@ namespace UiIoT.Services
             
             
         //суета такая это заглущка сюда данные с сервера
-        private RobotViewModel ViewModel = new RobotViewModel();
+        private IoT ViewModel = new RobotViewModel();
         //TODO: разобраться откуда идут сюда данные
         public RobotDataSender(IHubContext<RandomDataHub> hub)
         {

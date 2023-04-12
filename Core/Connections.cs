@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Windows.Threading;
+using UiIoT.Core;
+using UiIoT.Models;
 
 namespace UiIOT.Core
 {
+    //TODO: переписать всё навхрен!!!!!!!
     public static class Connections
     {
         public static EventHandler<Command> NewCommand;

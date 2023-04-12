@@ -3,6 +3,6 @@
     public class IoTContext
     {
         //TODO: add another types of devices
-        public List<RobotViewModel> robots = new List<RobotViewModel>();
+        public List<IoT> robots = new List<IoT>();
     }
 }

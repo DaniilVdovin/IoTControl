@@ -1,4 +1,6 @@
-﻿namespace UiIoT.Core
+﻿using UiIoT.Models;
+
+namespace UiIoT.Core
 {
     public class Team
     {

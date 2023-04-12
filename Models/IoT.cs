@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using UiIoT.Core;
 
-namespace UiIoT.Core
+namespace UiIoT.Models
 {
     public class IoT : IOfThings
     {
 
-        public string type { get ; set; }
+        public string type { get; set; }
         public string name { get; set; }
         public string hostname { get; set; }
         public int port { get; set; }
@@ -38,14 +39,14 @@ namespace UiIoT.Core
             this.service = data[5];
 
         }
-       
+
         public void Start(Thread t)
         {
-            if(thread != null)
+            if (thread != null)
                 thread.Abort();
             thread = t;
             thread.Start();
         }
-        public void SetupUPD() => UDP = new UDP(hostname,port);
+        public void SetupUPD() => UDP = new UDP(hostname, port);
     }
 }
