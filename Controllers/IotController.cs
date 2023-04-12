@@ -8,16 +8,12 @@ namespace UiIoT.Controllers
 {
     public class IotController : Controller
     {
-        private UDP _helper_udp = new UDP("127.0.0.1", 5555);
-        private Command comm = new Command();
-        private IoTContext ioTContext = new IoTContext();
-        private readonly IHubContext<RandomDataHub> _randomdatahub;
-        IoT robot1 = new IoT("s","s","s",20);
-        IoT robot2 = new IoT("a", "a", "a", 20);
+        private readonly UDP _helper_udp = new UDP("127.0.0.1", 5555);
+        private readonly IoTContext ioTContext = new IoTContext();
         private void pseudodata()
         {
-            robot2.name = "гена";
-            robot1.name = "Жора";
+            IoT robot1 = new IoT("s", "s", "s", 20);
+            IoT robot2 = new IoT("a", "a", "a", 20);
             ioTContext.robots.Add(robot1);
             ioTContext.robots.Add(robot2);
         }
@@ -29,14 +25,13 @@ namespace UiIoT.Controllers
                 {
                     return robot;
                 }
-     
             }
             return null;
 
         }
         public IotController(IHubContext<RandomDataHub> randomdatahub)
         {
-            _randomdatahub = randomdatahub;
+       
             pseudodata();
         }
         public async Task<Command> udp_listener()
