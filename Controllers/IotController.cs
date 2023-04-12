@@ -12,10 +12,13 @@ namespace UiIoT.Controllers
         private readonly IoTContext ioTContext = new IoTContext();
         private void pseudodata()
         {
-            IoT robot1 = new IoT("s", "s", "s", 20);
-            IoT robot2 = new IoT("a", "a", "a", 20);
-            ioTContext.robots.Add(robot1);
-            ioTContext.robots.Add(robot2);
+            IoTParser parser = new IoTParser();
+            string data = pseudoDataWorker.take_pseudodate();
+
+            for (int i = 0; i < 3; i++)
+            {
+                ioTContext.robots.Add(parser.Parse(data));
+            }
         }
         private IoT take_by_name(IoTContext ioTContext, string name)
         {
@@ -29,10 +32,11 @@ namespace UiIoT.Controllers
             return null;
 
         }
+        
         public IotController(IHubContext<RandomDataHub> randomdatahub)
         {
-       
             pseudodata();
+
         }
         public async Task<Command> udp_listener()
         {
@@ -42,13 +46,16 @@ namespace UiIoT.Controllers
        
 
         public async Task<IActionResult> Index()
-        {    
+        {
+            
             //TODO: take robotList
             return View(ioTContext);
         }
 
         public IActionResult Robot(string name)
         {
+
+            udp_listener();
             IoT data = take_by_name(ioTContext, name);
             if (data is not null)
                 return View(data);

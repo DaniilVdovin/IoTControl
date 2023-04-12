@@ -11,14 +11,15 @@ namespace UiIoT.Models
 {
     public class IoT : IOfThings
     {
-
+        //delete
+       
         public string type { get; set; }
         public string name { get; set; }
         public string hostname { get; set; }
         public int port { get; set; }
 
         public string service { get; set; }
-
+        public _DataHolder _Data { get; set; }
         public Thread thread { get; set; }
         public UDP UDP { get; set; }
 
@@ -30,6 +31,14 @@ namespace UiIoT.Models
             this.hostname = hostnames;
             this.port = ports;
         }
+        public IoT(string types, string names, string hostnames, int ports, _DataHolder _DataHolder)
+        {
+            this.type = types;
+            this.name = names;
+            this.hostname = hostnames;
+            this.port = ports;
+            this._Data = _DataHolder;
+        }
         public IoT(string[] data)
         {
             this.type = data[0];
@@ -39,6 +48,7 @@ namespace UiIoT.Models
             this.service = data[5];
 
         }
+     
 
         public void Start(Thread t)
         {
@@ -48,5 +58,6 @@ namespace UiIoT.Models
             thread.Start();
         }
         public void SetupUPD() => UDP = new UDP(hostname, port);
+
     }
 }

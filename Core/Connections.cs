@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Diagnostics;
 using UiIoT.Core;
 using UiIoT.Models;
 
@@ -12,7 +7,7 @@ namespace UiIOT.Core
     //TODO: переписать всё навхрен!!!!!!!
     public static class Connections
     {
-        public static EventHandler<Command> NewCommand;
+        public static EventHandler<Command>? NewCommand;
         public static List<IoT> Things = new List<IoT>();
         public static List<Command> CommandList = new List<Command>();
 
@@ -28,12 +23,12 @@ namespace UiIOT.Core
                 i.Start(new Thread(async () =>
                 {
                     bool work = true;
-                    _ = i.UDP.SendCommandAsync("r").Result;
+                    await i.UDP.SendCommandAsync("r");
                     while (work)
                     {
                         try
                         {
-                            Command cmd = i.UDP.ReceiveCommandAsync(i).Result;
+                            Command cmd =  i.UDP.ReceiveCommandAsync(i).Result;
                             if (cmd != null) AddCommand(i, cmd);
                         }
                         catch (Exception e)
