@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,8 +31,8 @@ namespace IoTControl.Core
             {
                 teams.Add(LoadFile(file));
                 Console.WriteLine(file);
-            }
-            return teams;
+			}
+			return teams;
         }
     }
 }

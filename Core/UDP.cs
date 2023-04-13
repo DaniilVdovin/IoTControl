@@ -36,7 +36,7 @@ namespace IoTControl.Core
 				Debug.WriteLine(response.Buffer);
 				listener.Close();
                 var temp = Thingworx.Connect(response, i);
-                return (new Command(response, groupEP, temp, i));
+                return (new Command(response, groupEP, temp.Result, i));
 			}
 			listener.Close();
 			return null;

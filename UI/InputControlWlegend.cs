@@ -12,11 +12,14 @@ namespace IoTControl.UI
 	{
 		private TextBlock Legend;
 		private TextBox Input;
-		private string legend = "?";
-		public string Value {get=>Input.Text; set=>Input.Text=value.ToString();} //int.Parse(Input.Text)
+		public string legend = "?";
+		public string val;
+		public string Value { get => Input.Text; set => Input.Text = value.ToString(); } //int.Parse(Input.Text) { get => Input.Text = "1"; set => Input.Text = value.ToString();}
+
 		public InputControlWlegend() { }
-		public InputControlWlegend(string legend) {
+		public InputControlWlegend(string legend, string Value) {
 			this.legend = legend;
+			this.val  = Value;
 		}
 		protected override void OnInitialized(EventArgs e)
 		{
@@ -31,10 +34,11 @@ namespace IoTControl.UI
 			panel.Orientation = Orientation.Horizontal;
 			Legend = new TextBlock() { Text = legend, VerticalAlignment = VerticalAlignment.Center, Width = this.Width * 0.2 };
 			panel.Children.Add(Legend);
-			Input = new TextBox() { VerticalAlignment = VerticalAlignment.Center, Width = this.Width * 0.5, Text = "0"};
+			Input = new TextBox() { VerticalAlignment = VerticalAlignment.Center, Width = this.Width * 0.5, Text = val };	
 			panel.Children.Add(Input);
 			border.Child = panel;
 			Content = border;
 		}
 	}
 }
+

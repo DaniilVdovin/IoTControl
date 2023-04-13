@@ -14,15 +14,15 @@ namespace IoTControl.Core
     {
         public string Data;
 		public string TypeThing;
-		public JsonObject Response;
+		public Dictionary<string, string> Response;
 		public IoT ThingSelf;
 
 		public Command() { }
-        public Command(System.Net.Sockets.UdpReceiveResult result, IPEndPoint ipport, Task<JsonObject> Resp, IoT i) // System.Net.Sockets.UdpReceiveResult byte[] result
+        public Command(System.Net.Sockets.UdpReceiveResult result, IPEndPoint ipport, Dictionary<string,string> Resp, IoT i) // System.Net.Sockets.UdpReceiveResult byte[] result
 		{
 			ThingSelf = i;
 			TypeThing = i.type;
-			Response = Resp.Result;
+			Response = Resp;
 			Data = ipport + " \n" + Encoding.UTF8.GetString(result.Buffer); //Encoding.UTF8.GetString(result.Buffer); Encoding.ASCII.GetString(result, 0, result.Length);
 		}
     }
