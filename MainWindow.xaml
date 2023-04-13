@@ -23,11 +23,11 @@
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top">
             <Grid>
-                <TextBox x:Name="tb_serverIP" HorizontalAlignment="Left" Margin="110,10,0,0" TextWrapping="Wrap" Text="ServerIP:port" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="tb_appKey" HorizontalAlignment="Left" Margin="110,30,0,0" TextWrapping="Wrap" Text="AppKey" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="tb_serverIP" HorizontalAlignment="Left" Margin="17,17,0,0" TextWrapping="Wrap" Text="ServerIP:port" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="tb_appKey" HorizontalAlignment="Left" Margin="17,39,0,0" TextWrapping="Wrap" Text="AppKey" VerticalAlignment="Top" Width="120"/>
                 <Button x:Name="tb_gear" Style="{StaticResource ImageButton_Tool}" 
                         ToolTip="Синхронизация с базой" VerticalAlignment="Top"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left" Margin="142,17,0,0">
                     <Image Source="/Sources/Icons/icons8-gear.png"/>
                 </Button>
             </Grid>
@@ -43,11 +43,12 @@
                 </Grid.ColumnDefinitions>
                 <ToggleButton Style="{StaticResource ComboBoxToggleButton}" Margin="10,15,115,244" Grid.ColumnSpan="2" x:Name="ToggleReceive"/>
                 <StackPanel Width="70" HorizontalAlignment="Left" x:Name="Container_parameters" Grid.Column="1" Margin="79,0,0,0"/>
-                <ComboBox x:Name="ThingsList" Width="90" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,57,0,0" Grid.ColumnSpan="2" SelectedIndex = "0" SelectionChanged="ThingsList_SelectionChanged"/>
-                <Button x:Name="tb_SendDataTo" 
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left" Margin="34,82,0,0" Click="SendDataToRobot" Grid.ColumnSpan="2">Отправка
+
+                <ComboBox Style="{StaticResource ComboBoxFlatStyle}" x:Name="ThingsList" Width="105" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,54,0,0" Grid.ColumnSpan="2" SelectedIndex = "0" SelectionChanged="ThingsList_SelectionChanged" />
+                <Button Style ="{StaticResource CustomButton}" x:Name="tb_SendDataTo" VerticalAlignment="Top"
+                        HorizontalAlignment="Left" Margin="10,74,0,0" Click="SendDataToRobot" Grid.ColumnSpan="2" Width="105">Отправка
                 </Button>
+
             </Grid>
         </UI:CardHolder>
 

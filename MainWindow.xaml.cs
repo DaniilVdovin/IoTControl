@@ -64,13 +64,13 @@ namespace IoTControl
 
 		public void SendDataToRobot(object sender, RoutedEventArgs e)
 		{
-            SendData(InputControl.Count, Teams[ThingsList.SelectedIndex]);
+			SendData(InputControl.Count, Teams[ThingsList.SelectedIndex]);
 		}
 		public void SendDataToRobot(int Param, IoT ThingSelf)
 		{
 			SendData(Param,ThingSelf);
 		}
-		private void SendData(int Param, IoT ThingSelf)
+		private void SendData(int Param, IoT ThingSelf) // мб нужно сделать async 
 		{
 			string Cmd_package = ThingSelf.firstLetter;
 
@@ -89,11 +89,14 @@ namespace IoTControl
 
 		private void ThingsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var things = Teams[ThingsList.SelectedIndex];
+			ChangeKeyValue(Teams[ThingsList.SelectedIndex]);
+		}
+		public void ChangeKeyValue(IoT things)
+		{
 			Container_parameters.Children.Clear(); InputControl.Clear();
 			foreach (string s in things.ThingControl.Keys)
 			{
-				InputControlWlegend temp = new InputControlWlegend(s, things.ThingControl[s].ToString()); //things.ThingControl[s].ToString()
+				InputControlWlegend temp = new InputControlWlegend(s, things.ThingControl[s].ToString());
 				InputControl.Add(temp);
 				Container_parameters.Children.Add(temp);
 			}
@@ -104,25 +107,19 @@ namespace IoTControl
 			
 			if (ToggleReceive.IsChecked == true)
 			{
-				var things = Teams[ThingsList.SelectedIndex];
-				Container_parameters.Children.Clear(); InputControl.Clear();
-				foreach (string s in things.ThingControl.Keys) //TODO FiX 
-				{
-					InputControlWlegend temp = new InputControlWlegend(s, things.ThingControl[s].ToString()); //things.ThingControl[s].ToString()
-					InputControl.Add(temp);
-					Container_parameters.Children.Add(temp);
-				}
 				foreach (var item in ThingSelf.ThingControl.Keys.ToList())
 				{
 					if (Responce.ContainsKey(item))
 					{
 						ThingSelf.ThingControl[item] = Responce[item];
+						//if (Teams[ThingsList.SelectedIndex] == ThingSelf)
+						ChangeKeyValue(ThingSelf);  //TODO будет перезаписывать данные на экране (  Но нужно же делать красиво а не так чтобы оно работало да? (❁´◡`❁)(❁´◡`❁)(❁´◡`❁) )
 					}
 				}
+				SendDataToRobot(ThingSelf.ThingControl.Count, ThingSelf);
+
 			}
 
-			//SendDataToRobot(ThingSelf.ThingControl.Count, ThingSelf);
-			
 		}
 	}
 }
