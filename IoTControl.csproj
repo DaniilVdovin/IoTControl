@@ -83,6 +83,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\DataForThingworx.cs" />
+    <Compile Include="Core\ThingProperties.cs" />
     <Compile Include="Core\Thingworx.cs" />
     <Compile Include="UI\CardHolder.cs" />
     <Compile Include="UI\InputControlWlegend.cs" />
@@ -112,7 +114,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Styles\CustomToggleButton.xaml">
+    <Page Include="UI\Styles\CustomToggleButtonTo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Styles\CustomToggleButtonFrom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

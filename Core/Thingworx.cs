@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Markup;
 using System.Diagnostics;
 using System.Windows.Media;
@@ -14,12 +15,17 @@ using System.Text.Json.Serialization;
 using System.Xml.Linq;
 using System.Text.Json.Nodes;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
+using IoTControl.UI;
+using System.Net.Mail;
+using System.ComponentModel.Design;
 
 namespace IoTControl.Core
 {
 	internal class Thingworx
 	{
-
+		public static bool SendToThx;
+		public static bool ReceiveFromThx;
 		public static async Task<Dictionary<string, string>> Connect(System.Net.Sockets.UdpReceiveResult dataFromRobots, IoT things)
 		{
 
@@ -52,20 +58,76 @@ namespace IoTControl.Core
 				default:
 					data = null; break;
 			}
-		
-			string json = JsonSerializer.Serialize(data); // Преобразуем объект в JSON
-			Debug.WriteLine(json);
-			// Создаем HttpClient и настраиваем запрос
-			var client = new HttpClient();
-			client.DefaultRequestHeaders.Add("appKey", "5d14dd56-4ac7-49da-904c-5837d5f73c08");
-			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-			// Отправляем запрос и получаем ответ
-			var content = new StringContent(json, Encoding.UTF8, "application/json");
-			var response = await client.PostAsync($"http://192.168.0.250:8080/Thingworx/Things/{things.name}/Services/{things.service}", content);
-			var responseContent = await response.Content.ReadAsStringAsync();
-			return JsonSerializer.Deserialize<Dictionary<string, int>>(responseContent).ToDictionary(pair => pair.Key, pair => pair.Value.ToString());
-		}
 
+			Debug.WriteLine("zxczxczxc");
+
+			return await SendToThingworx(things, data);
+		}
+		public static async Task<Dictionary<string, string>> SendToThingworx(IoT thingSelf, Dictionary<string,string> data) 
+		{
+			if ((SendToThx == true))
+			{
+				thingSelf.ThingMonitoring = data;
+				string json = JsonSerializer.Serialize(data); // Преобразуем объект в JSON
+
+				// Создаем HttpClient и настраиваем запрос
+				var client = new HttpClient();
+				client.DefaultRequestHeaders.Add("appKey", DataForThingworx.AppKey);
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				// Отправляем запрос и получаем ответ
+				var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+
+				await client.PostAsync($"http://{DataForThingworx.ServerIP}/Thingworx/Things/{thingSelf.name}/Services/{thingSelf.service}", content);
+				
+				return new Dictionary<string, string>() { };
+			}
+			else if (ReceiveFromThx == true && SendToThx == false) {
+				string json = JsonSerializer.Serialize(thingSelf.ThingMonitoring); // Преобразуем объект в JSON
+
+				// Создаем HttpClient и настраиваем запрос
+				var client = new HttpClient();
+				client.DefaultRequestHeaders.Add("appKey", DataForThingworx.AppKey);
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				// Отправляем запрос и получаем ответ
+				var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+
+				var response = await client.PostAsync($"http://{DataForThingworx.ServerIP}/Thingworx/Things/{thingSelf.name}/Services/{thingSelf.service}", content);
+				var responseContent = await response.Content.ReadAsStringAsync();
+				return JsonSerializer.Deserialize<Dictionary<string, int>>(responseContent).ToDictionary(pair => pair.Key, pair => pair.Value.ToString());
+			}
+			else
+			{
+				return new Dictionary<string, string>() { };
+			}
+		}
+		public static async Task<Dictionary<string, string>> ReceiveFromThingworx(IoT thingSelf) // пока не придумал куда юзать
+		{
+			if (ReceiveFromThx == true && SendToThx == false)
+			{
+
+				string json = JsonSerializer.Serialize(thingSelf.ThingMonitoring); // Преобразуем объект в JSON
+
+				// Создаем HttpClient и настраиваем запрос
+				var client = new HttpClient();
+				client.DefaultRequestHeaders.Add("appKey", DataForThingworx.AppKey);
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				// Отправляем запрос и получаем ответ
+				var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+
+				var response = await client.PostAsync($"http://{DataForThingworx.ServerIP}/Thingworx/Things/{thingSelf.name}/Services/{thingSelf.service}", content);
+				var responseContent = await response.Content.ReadAsStringAsync();
+				Debug.WriteLine("ReceiveFromThingworx" + " " + responseContent);
+
+				return JsonSerializer.Deserialize<Dictionary<string, int>>(responseContent).ToDictionary(pair => pair.Key, pair => pair.Value.ToString()); //FIXME Из-за этого багается remote terminal! текст ему приходит string а всё остальное приходит integer. int нужен везде кроме одной переменной в remote terminal(((
+			}
+			else
+			{
+				return new Dictionary<string, string>() { };
+			}
+		}
 	}
 
 }

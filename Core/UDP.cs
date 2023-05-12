@@ -28,18 +28,24 @@ namespace IoTControl.Core
         public void Close() => udpClient.Close();
 		public async Task<Command> ReceiveCommandAsync(IoT i)
 		{
-			UdpClient listener = new UdpClient(i.port);
-            var response = await listener.ReceiveAsync();
-            Debug.WriteLine(response.RemoteEndPoint.Address.ToString());
-
-			if (response.RemoteEndPoint.Address.ToString() == i.hostname) {
-				Debug.WriteLine(response.Buffer);
+			try
+			{
+				UdpClient listener = new UdpClient(i.port);
+				var response = await listener.ReceiveAsync();
+				Debug.WriteLine(response.RemoteEndPoint.Address.ToString());
+				if (response.RemoteEndPoint.Address.ToString() == i.hostname)
+				{
+					Debug.WriteLine(response.Buffer);
+					listener.Close();
+					var temp = Thingworx.Connect(response, i);
+					return (new Command(response.Buffer, groupEP, temp.Result, i));
+				}
 				listener.Close();
-                var temp = Thingworx.Connect(response, i);
-                return (new Command(response, groupEP, temp.Result, i));
+				return null;
 			}
-			listener.Close();
-			return null;
+			catch {
+				return null;
+			}
 
 		}
         public async Task<bool> SendCommandAsync(string command)

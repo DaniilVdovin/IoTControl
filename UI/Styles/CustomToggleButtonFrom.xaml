@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="ComboBoxToggleButton"
+    <Style x:Key="ComboBoxToggleButtonFrom"
                  TargetType="{x:Type ToggleButton}">
         <Setter Property="IsChecked" Value="False" />
         <Setter Property="Template">
@@ -20,23 +20,23 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="border" Property="Background" Value="DarkSeaGreen"/>
                             <Setter TargetName="border" Property="CornerRadius" Value="1,5,1,5"/>
-                            <Setter Property="Content" Value="Receive data"/>
+                            <Setter Property="Content" Value="Получать данные"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="True">
                             <Setter TargetName="border" Property="Background" Value="DarkSeaGreen"/>
                             <Setter TargetName="border" Property="CornerRadius" Value="1,5,1,5"/>
-                            <Setter Property="Content" Value="Receive data"/>
+                            <Setter Property="Content" Value="Получать данные"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="border" Property="Background" Value="Pink"/>
                             <Setter TargetName="border" Property="CornerRadius" Value="5,1,5,1"/>
                             <Setter TargetName="border" Property="Margin" Value="1"/>
-                            <Setter Property="Content" Value="Not receive data"/>
+                            <Setter Property="Content" Value="Не получать данные"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
                             <Setter TargetName="border" Property="Background" Value="Pink"/>
                             <Setter TargetName="border" Property="CornerRadius" Value="5,1,5,1"/>
-                            <Setter Property="Content" Value="Not receive data"/>
+                            <Setter Property="Content" Value="Не получать данные"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

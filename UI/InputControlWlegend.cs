@@ -39,6 +39,10 @@ namespace IoTControl.UI
 			border.Child = panel;
 			Content = border;
 		}
+		public string getLegend()
+		{
+			return Legend.Text;
+		}
 	}
 }
 

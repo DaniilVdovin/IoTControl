@@ -11,8 +11,10 @@ namespace IoTControl.Core
         public string Name { get; set; }
         public string Path { get; set; }
         public List<IoT> IoTs { get; set; }
+		public string Appkey { get; set; }
+		public string ServerIP { get; set; }
 
-        public Team() {
+		public Team() {
             IoTs = new List<IoT>();
         }
     }

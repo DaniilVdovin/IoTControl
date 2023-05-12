@@ -14,13 +14,26 @@ namespace IoTControl.Core
         private static Team LoadFile(string path)
         {
             Team temp = new Team();
-            temp.Name = path.Replace("_","").Split('.')[0];
-            temp.Path = Environment.CurrentDirectory + "/Teams/" + path;
+            temp.Name = path.Substring(path.LastIndexOf('/')).Replace("_","").Split('.')[0];
+            temp.Path = path;
             using (var reader = File.OpenText(path))
             {
                 string line = "";
-                while ((line = reader.ReadLine()) != null)
-                    temp.IoTs.Add(new IoT(line.Split(';')));
+				int currentLine = 1;
+				while ((line = reader.ReadLine()) != null)
+                {
+                    if (currentLine >= 2)
+                    {
+						temp.IoTs.Add(new IoT(line.Split(';')));
+					}
+                    else
+                    {
+						temp.ServerIP = line.Split(';')[0];
+						temp.Appkey = line.Split(';')[1];
+					}
+					currentLine++;
+                }
+                    
             }
             return temp;
         }

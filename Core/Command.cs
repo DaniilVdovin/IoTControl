@@ -18,12 +18,12 @@ namespace IoTControl.Core
 		public IoT ThingSelf;
 
 		public Command() { }
-        public Command(System.Net.Sockets.UdpReceiveResult result, IPEndPoint ipport, Dictionary<string,string> Resp, IoT i) // System.Net.Sockets.UdpReceiveResult byte[] result
+		public Command(byte[] result, IPEndPoint ipport, Dictionary<string,string> Resp, IoT i) // System.Net.Sockets.UdpReceiveResult byte[] result
 		{
 			ThingSelf = i;
 			TypeThing = i.type;
 			Response = Resp;
-			Data = ipport + " \n" + Encoding.UTF8.GetString(result.Buffer); //Encoding.UTF8.GetString(result.Buffer); Encoding.ASCII.GetString(result, 0, result.Length);
+			Data = ipport + " \n" + Encoding.UTF8.GetString(result); //Encoding.UTF8.GetString(result.Buffer); Encoding.ASCII.GetString(result, 0, result.Length);
 		}
     }
 }
