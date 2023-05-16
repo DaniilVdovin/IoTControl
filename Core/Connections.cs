@@ -46,7 +46,7 @@ namespace IoTControl.Core
 						}
 						catch (Exception e)
 						{
-							Debug.WriteLine(e.Message + " connections catch");
+							Debug.WriteLine(e.Message + " connections catch\n" + e.StackTrace);
 						}
 						//await Task.Delay(500);
 						Thread.Sleep(2000); //FIXME Нужно что-то с этим делать, беспощадно лагать может

@@ -15,10 +15,14 @@ namespace IoTControl.Core
     {
 		UdpClient udpClient;
 		IPEndPoint groupEP;
+		IPEndPoint clientIP;
+
 		public UDP(string hostname, int port)
         {
 			udpClient = new UdpClient(hostname, port);
 			groupEP = new IPEndPoint(IPAddress.Parse(hostname), 8888);
+			//clientIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8888);
+			//udpClient.Connect(hostname, port);
 		}
 		public void Reconect(string hostname, int port)
         {
@@ -30,8 +34,9 @@ namespace IoTControl.Core
 		{
 			try
 			{
-				UdpClient listener = new UdpClient(i.port);
-				var response = await listener.ReceiveAsync();
+				
+				UdpClient listener = new UdpClient(i.port); // SocketException тут   КРЧ есть вариант сделать переменную которая будет хранить состояние(подключено ли сейчас или же занят ли порт сейчас) и делать if на это 
+				var response = await listener.ReceiveAsync(); 
 				Debug.WriteLine(response.RemoteEndPoint.Address.ToString());
 				if (response.RemoteEndPoint.Address.ToString() == i.hostname)
 				{
@@ -43,7 +48,8 @@ namespace IoTControl.Core
 				listener.Close();
 				return null;
 			}
-			catch {
+			catch(SocketException e) {
+				Console.WriteLine(e.Message +"\n"+ e.StackTrace);
 				return null;
 			}
 
@@ -53,11 +59,12 @@ namespace IoTControl.Core
             try
             {
                 byte[] data = Encoding.UTF8.GetBytes(command);
-                await udpClient.SendAsync(data, data.Length);
-                return true;
+                await udpClient.SendAsync(data, data.Length );//clientIP
+				return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+				Console.WriteLine(e.Message + "\n" + e.StackTrace);
                 return false;
             }
         }

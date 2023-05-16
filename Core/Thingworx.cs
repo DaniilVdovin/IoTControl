@@ -95,7 +95,7 @@ namespace IoTControl.Core
 
 				var response = await client.PostAsync($"http://{DataForThingworx.ServerIP}/Thingworx/Things/{thingSelf.name}/Services/{thingSelf.service}", content);
 				var responseContent = await response.Content.ReadAsStringAsync();
-				return JsonSerializer.Deserialize<Dictionary<string, int>>(responseContent).ToDictionary(pair => pair.Key, pair => pair.Value.ToString());
+				return JsonSerializer.Deserialize<Dictionary<string, object>>(responseContent).ToDictionary(pair => pair.Key, pair => pair.Value.ToString());
 			}
 			else
 			{
@@ -121,7 +121,7 @@ namespace IoTControl.Core
 				var responseContent = await response.Content.ReadAsStringAsync();
 				Debug.WriteLine("ReceiveFromThingworx" + " " + responseContent);
 
-				return JsonSerializer.Deserialize<Dictionary<string, int>>(responseContent).ToDictionary(pair => pair.Key, pair => pair.Value.ToString()); //FIXME Из-за этого багается remote terminal! текст ему приходит string а всё остальное приходит integer. int нужен везде кроме одной переменной в remote terminal(((
+				return JsonSerializer.Deserialize<Dictionary<string, object>>(responseContent).ToDictionary(pair => pair.Key, pair => pair.Value.ToString());
 			}
 			else
 			{

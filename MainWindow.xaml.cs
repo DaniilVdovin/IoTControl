@@ -86,7 +86,7 @@ namespace IoTControl
             {
 				GetReceiveFromThingworx(cmd.Response, cmd.ThingSelf);
 				var valzxc = "";
-				if (cmd.Data.Length < 4) cmd.Data = null;
+				if (cmd.Data != null && cmd.Data.Length < 4) cmd.Data = null;
 				
 
 				if (cmd.Response == null) { }
@@ -102,10 +102,10 @@ namespace IoTControl
 				string textToMonitor = (cmd.Data != null ? cmd.ThingSelf.name + " " + cmd.Data + "\n" : "");
 				Debug.WriteLine(tb_log.Text.Length);
 				if (tb_log.Text.Length > 10000)
-					tb_log.Text = tb_log.Text.Substring(tb_log.Text.Length-textToLog.Length, textToLog.Length); // надо пофиксить 
+					tb_log.Text = tb_log.Text.Substring(tb_log.Text.Length-textToLog.Length, textToLog.Length); //FIXME надо пофиксить неправильно стирает. Желательно, должен стирать текст в начале чтобы спокойно добавлять в конце,но он криво работает
 
 				if (tb_Monitoring.Text.Length > 10000)
-					tb_Monitoring.Text = tb_Monitoring.Text.Substring(tb_Monitoring.Text.Length - textToMonitor.Length, textToMonitor.Length); // надо пофиксить 
+					tb_Monitoring.Text = tb_Monitoring.Text.Substring(tb_Monitoring.Text.Length - textToMonitor.Length, textToMonitor.Length); // надо пофиксить то же самое 
 
 				tb_Monitoring.Text += textToMonitor;
 				tb_log.Text += textToLog;
