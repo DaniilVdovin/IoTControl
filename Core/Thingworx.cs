@@ -65,7 +65,7 @@ namespace IoTControl.Core
 		}
 		public static async Task<Dictionary<string, string>> SendToThingworx(IoT thingSelf, Dictionary<string,string> data) 
 		{
-			if ((SendToThx == true))
+			if ((SendToThx == true)) //FIXME
 			{
 				thingSelf.ThingMonitoring = data;
 				string json = JsonSerializer.Serialize(data); // Преобразуем объект в JSON
@@ -82,21 +82,6 @@ namespace IoTControl.Core
 				
 				return new Dictionary<string, string>() { };
 			}
-			else if (ReceiveFromThx == true && SendToThx == false) {
-				string json = JsonSerializer.Serialize(thingSelf.ThingMonitoring); // Преобразуем объект в JSON
-
-				// Создаем HttpClient и настраиваем запрос
-				var client = new HttpClient();
-				client.DefaultRequestHeaders.Add("appKey", DataForThingworx.AppKey);
-				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				// Отправляем запрос и получаем ответ
-				var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-
-				var response = await client.PostAsync($"http://{DataForThingworx.ServerIP}/Thingworx/Things/{thingSelf.name}/Services/{thingSelf.service}", content);
-				var responseContent = await response.Content.ReadAsStringAsync();
-				return JsonSerializer.Deserialize<Dictionary<string, object>>(responseContent).ToDictionary(pair => pair.Key, pair => pair.Value.ToString());
-			}
 			else
 			{
 				return new Dictionary<string, string>() { };
@@ -104,7 +89,7 @@ namespace IoTControl.Core
 		}
 		public static async Task<Dictionary<string, string>> ReceiveFromThingworx(IoT thingSelf) // пока не придумал куда юзать
 		{
-			if (ReceiveFromThx == true && SendToThx == false)
+			if (ReceiveFromThx == true) 
 			{
 
 				string json = JsonSerializer.Serialize(thingSelf.ThingMonitoring); // Преобразуем объект в JSON

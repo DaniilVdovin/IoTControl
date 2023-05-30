@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Packaging;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,8 +18,6 @@ namespace IoTControl
     public partial class MainWindow : Window
     {
 
-		List<string> ListThingsName = new List<string>();
-		List<string> ListBarcodeThingsName = new List<string>();
 		List<IoT> ListBarcode = new List<IoT>();
 
 		List<Team> Teams = new List<Team>();
@@ -27,11 +26,13 @@ namespace IoTControl
 		public MainWindow()
         {
 			InitializeComponent();
-            Connections.NewCommand += NowNewCommand;
-            Teams = TeamLoadManager.LoadTeams();
-			//DataForThingworx.LoadThx();
+            Connections.MonCommand += NowNewCommand;
+			Connections.LogCommand += NowNewCommandToLog;
+
+			Teams = TeamLoadManager.LoadTeams();
 
 			Connections.Things = Teams[0].IoTs;
+			Console.WriteLine("Things IoTs : " + Connections.Things + "\n"+ Teams[0].IoTs);
 			Connections.DFThx = DFThx;
 			Connections.Start();
 			List<string> ListForTeams = new List<string>(); 
@@ -39,9 +40,6 @@ namespace IoTControl
             {
 				TeamsList.Items.Add(team.Name);
 			}
-			//TeamsList_SelectionChanged(null, null);
-			
-
 
 			tb_appKey.Text = DataForThingworx.AppKey;
 			tb_serverIP.Text = DataForThingworx.ServerIP;
@@ -52,22 +50,29 @@ namespace IoTControl
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
         {
             Connections.Close();
-            Connections.NewCommand -= NowNewCommand;
-        }
+            Connections.MonCommand -= NowNewCommand;
+			Connections.LogCommand -= NowNewCommandToLog;
+
+		}
 		private void TeamsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			if (ThingsList.SelectedItem != null) AddNewCommandToLog($"Выбрана команда: {TeamsList.SelectedItem}");
+
 			if (Connections.Things != null) { Connections.Close(); }
 			Connections.Things = Teams[TeamsList.SelectedIndex].IoTs;
 			DataForThingworx.ServerIP = Teams[TeamsList.SelectedIndex].ServerIP;
 			DataForThingworx.AppKey = Teams[TeamsList.SelectedIndex].Appkey;
+			tb_serverIP.Text = DataForThingworx.ServerIP;
+			tb_appKey.Text = DataForThingworx.AppKey;
+
 			Connections.Start();
 
-			ListBarcode.Clear(); ListThingsName.Clear(); ListBarcodeThingsName.Clear(); 
-			BarcodeList.Items.Clear(); ThingsList.Items.Clear(); 
+			ListBarcode.Clear(); BarcodeList.Items.Clear(); ThingsList.Items.Clear(); 
 
-			foreach (IoT t in Teams[TeamsList.SelectedIndex].IoTs)
-			{
-				if (t.type == "B")
+			foreach (IoT t in Teams[TeamsList.SelectedIndex].IoTs)				   
+			{																	   
+				Console.WriteLine(t.name.ToString());							   
+				if (t.type == "B")												   
 				{
 					ListBarcode.Add(t);
 					BarcodeList.Items.Add(t.name);
@@ -87,7 +92,7 @@ namespace IoTControl
 				GetReceiveFromThingworx(cmd.Response, cmd.ThingSelf);
 				var valzxc = "";
 				if (cmd.Data != null && cmd.Data.Length < 4) cmd.Data = null;
-				
+
 
 				if (cmd.Response == null) { }
 				else
@@ -98,20 +103,53 @@ namespace IoTControl
 					}
 					valzxc = "\n" + valzxc;
 				}
-				string textToLog = (cmd.ThingSelf.name +" "+  cmd.Data + valzxc + "\n");
+
 				string textToMonitor = (cmd.Data != null ? cmd.ThingSelf.name + " " + cmd.Data + "\n" : "");
 				Debug.WriteLine(tb_log.Text.Length);
-				if (tb_log.Text.Length > 10000)
-					tb_log.Text = tb_log.Text.Substring(tb_log.Text.Length-textToLog.Length, textToLog.Length); //FIXME надо пофиксить неправильно стирает. Желательно, должен стирать текст в начале чтобы спокойно добавлять в конце,но он криво работает
-
-				if (tb_Monitoring.Text.Length > 10000)
-					tb_Monitoring.Text = tb_Monitoring.Text.Substring(tb_Monitoring.Text.Length - textToMonitor.Length, textToMonitor.Length); // надо пофиксить то же самое 
-
+				try
+				{
+					if (tb_Monitoring.Text.Length > 10000)
+						tb_Monitoring.Text = tb_Monitoring.Text.Substring(tb_Monitoring.Text.Length, tb_Monitoring.Text.Length - textToMonitor.Length);
+				}
+				catch { };
 				tb_Monitoring.Text += textToMonitor;
-				tb_log.Text += textToLog;
 			});
         }
 
+		public void NowNewCommandToLog(object s, Command cmd)
+		{
+			Dispatcher.Invoke(() =>
+			{
+				var valzxc = "";
+				if (cmd.Data != null && cmd.Data.Length < 4) cmd.Data = null;
+
+
+				if (cmd.Response == null) { }
+				else
+				{
+					foreach (var value in cmd.Response)
+					{
+						valzxc += value.ToString();
+					}
+					valzxc = "\n" + valzxc;
+				}
+
+				string textToLog = (cmd.ThingSelf.name + " " + cmd.Data + valzxc + "\n");
+				Debug.WriteLine(tb_log.Text.Length);
+				try
+				{
+					if (tb_log.Text.Length > 10000)
+						tb_log.Text = tb_log.Text.Substring(textToLog.Length, tb_log.Text.Length- textToLog.Length); 
+						tb_log.Text += textToLog;
+				}
+				catch { };
+			});
+
+		}
+		public void AddNewCommandToLog(string text)
+		{
+			tb_log.Text += text + "\n";
+		}
 		public void SendDataToRobot(object sender, RoutedEventArgs e)
 		{
 			for (int i = 0; i < InputControl.Count; i++)
@@ -136,12 +174,14 @@ namespace IoTControl
 			Cmd_package += "#";
 
 			Debug.WriteLine(ThingsList.SelectedIndex);
+			AddNewCommandToLog($"SEND: {Cmd_package} \nFOR: {ThingSelf.name}");
 			_ = ThingSelf.UDP.SendCommandAsync(Cmd_package);
 		}
 		
 
 		private void ThingsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			if (ThingsList.SelectedItem != null) AddNewCommandToLog($"Выбрана вещь: {ThingsList.SelectedItem}");
 			if (ThingsList.SelectedIndex != -1)
 				ChangeKeyValue(Connections.Things[ThingsList.SelectedIndex]);
 			else
@@ -181,11 +221,15 @@ namespace IoTControl
 
 		private void SendForAll(object sender, RoutedEventArgs e)
 		{
+			AddNewCommandToLog($"SendForAll: {((Button)sender).Tag.ToString()}");
 			Connections.SendForAllThings(((Button)sender).Tag.ToString());
 		}
 
 		private void SaveDataForConnectToThingworx(object sender, RoutedEventArgs e)
 		{
+			AddNewCommandToLog($"Изменены значения для подключения к thingworx: {(tb_appKey.Text, tb_serverIP.Text, Teams[TeamsList.SelectedIndex].Path)}");
+			Teams[TeamsList.SelectedIndex].ServerIP = tb_serverIP.Text;
+			Teams[TeamsList.SelectedIndex].Appkey = tb_appKey.Text;
 			DataForThingworx.ServerIP = tb_serverIP.Text;
 			DataForThingworx.AppKey = tb_appKey.Text;
 			DataForThingworx.SaveThx(tb_appKey.Text, tb_serverIP.Text, Teams[TeamsList.SelectedIndex].Path);
@@ -193,35 +237,58 @@ namespace IoTControl
 
 		private async void SendNumberForThing(object sender, RoutedEventArgs e)
 		{
+			AddNewCommandToLog($"SendNumberForSelectedThing: {((Button)sender).Tag.ToString()}");
 			await Connections.Things[ThingsList.SelectedIndex].UDP.SendCommandAsync(((Button)sender).Tag.ToString());
 		}
 		private void SendCodeToThingworx(object sender, RoutedEventArgs e)
 		{
 			if (BarcodeList.SelectedIndex != -1)
-				_  = Thingworx.SendToThingworx(ListBarcode[(BarcodeList.SelectedIndex)], new Dictionary<string, string> {{ "c", textBox_Barcode.Text } });
+			{
+				_ = Thingworx.SendToThingworx(ListBarcode[(BarcodeList.SelectedIndex)], new Dictionary<string, string> { { "c", textBox_Barcode.Text } });
+				AddNewCommandToLog($"Код был отправлен: {textBox_Barcode.Text} на {ListBarcode[(BarcodeList.SelectedIndex)].name}");
+
+			}
+
 		}
 
 
 		private void Monitoring_ScrollChanged(object sender, ScrollChangedEventArgs e)
 		{
-			scroll_Monitoring.ScrollToBottom();
+			if(cb_Monitoring.IsChecked ?? false)
+				scroll_Monitoring.ScrollToBottom();
 		}
 
 		private void Log_ScrollChanged(object sender, ScrollChangedEventArgs e)
 		{
-			scroll_log.ScrollToBottom();
+			if (cb_log.IsChecked ?? false)
+				scroll_log.ScrollToBottom();
 		}
 
 		private void ToggleReceiveToThingworx_Click(object sender, RoutedEventArgs e)
 		{
+			if (ToggleReceiveToThingworx.IsChecked ?? false)
+				AddNewCommandToLog("Данные будут отправляться на Thingworx");
+			else
+				AddNewCommandToLog("Данные не будут отправляться на Thingworx");
+
 			Debug.WriteLine(ToggleReceiveToThingworx.IsChecked);
 			Thingworx.SendToThx = ToggleReceiveToThingworx.IsChecked ?? false;
 		}
 
 		private void ToggleReceiveFromThingworx_Click(object sender, RoutedEventArgs e)
 		{
+			if (ToggleReceiveFromThingworx.IsChecked ?? false)
+				AddNewCommandToLog("Данные с Thingworx будут приходить");
+			else
+				AddNewCommandToLog("Данные с Thingworx не будут приходить");
+
 			Debug.WriteLine(ToggleReceiveFromThingworx.IsChecked);
 			Thingworx.ReceiveFromThx = ToggleReceiveFromThingworx.IsChecked ?? false;
+
+		}
+
+		private void textBox_Barcode_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
 
 		}
 	}

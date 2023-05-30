@@ -87,10 +87,10 @@ namespace IoTControl.Core
 		public Dictionary<string, string> GetTerminalData(string[] Subs)
 		{
 			var Data = new Dictionary<string, string>();
-			Data.Add("p", Subs[0].Split(':')[1]);
-			Data.Add("b1", Subs[0].Split(':')[2]);
-			Data.Add("b2", Subs[0].Split(':')[3]);
-			Data.Add("b3", Subs[0].Split(':')[4]);
+			Data.Add("p", Subs[0].Split(':')[2]);
+			Data.Add("b1", Subs[0].Split(':')[3]);
+			Data.Add("b2", Subs[0].Split(':')[4]);
+			Data.Add("b3", Subs[0].Split(':')[5]);
 
 			//this.ThingMonitoring = Data;
 			return Data;
