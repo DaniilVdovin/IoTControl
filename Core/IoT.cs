@@ -40,9 +40,9 @@ namespace IoTControl.Core
             this.hostname = data[2];
             this.port = int.Parse(data[3]);
             this.service = data[5];
-			this.ThingMonitoring = new ThingProperties().GetValue(type, "monitoring");
-			this.ThingControl = new ThingProperties().GetValue(type, "control");
-			this.firstLetter = new ThingProperties().getFirstLetter(type);
+			this.ThingMonitoring = robotProperties.MyDictionary[type].monitoring;
+			this.ThingControl = robotProperties.MyDictionary[type].control;
+			this.firstLetter = robotProperties.MyDictionary[type].firstLetter;
 
 		}
        

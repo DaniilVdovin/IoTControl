@@ -26,7 +26,9 @@ namespace IoTControl
 		public MainWindow()
         {
 			InitializeComponent();
-            Connections.MonCommand += NowNewCommand;
+			robotProperties.InitProperty();
+
+			Connections.MonCommand += NowNewCommand;
 			Connections.LogCommand += NowNewCommandToLog;
 
 			Teams = TeamLoadManager.LoadTeams();
