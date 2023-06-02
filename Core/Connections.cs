@@ -55,8 +55,7 @@ namespace IoTControl.Core
 						{
 							Debug.WriteLine(e.Message + " connections catch\n" + e.StackTrace);
 						}
-						//await Task.Delay(500);
-						Thread.Sleep(2000); //FIXME Нужно что-то с этим делать, беспощадно лагать может
+						Thread.Sleep(1000); //FIXME Нужно что-то с этим делать, беспощадно лагать может      а может и нет ╰(*°▽°*)╯
 					}
 				}));
 			}
@@ -65,7 +64,6 @@ namespace IoTControl.Core
         {
             foreach (IoT i in Things)
             {
-
 				Console.WriteLine(i.name.ToString());
 				await i.UDP.SendCommandAsync("s");
 				Console.WriteLine("SENDED!!!");

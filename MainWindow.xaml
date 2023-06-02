@@ -79,10 +79,10 @@
                  Grid.Column="0"  Grid.Row="2">
             <Grid>
                 <TextBlock Text="BarcodeReader Emulator" Margin="0,0,0,81" HorizontalAlignment="Left" Width="131"/>
-                <TextBox x:Name="textBox_Barcode" Margin="16,27,0,66" Height="23" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox x:Name="textBox_Barcode" Margin="16,35,0,0" Height="18" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <Button Style ="{StaticResource CustomButton}" x:Name="button_SendCodeToThingworx" VerticalAlignment="Top"
-                    HorizontalAlignment="Left" Margin="4,54,0,0" Click="SendCodeToThingworx" Width="122" Content="Отправить код" />
-                <ComboBox Style="{StaticResource ComboBoxFlatStyle}" x:Name="BarcodeList" Width="105" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,30,0,0" SelectedIndex = "0" />
+                    HorizontalAlignment="Left" Margin="4,65,0,0" Click="SendCodeToThingworx" Width="122" Content="Отправить код" />
+                <ComboBox Style="{StaticResource ComboBoxFlatStyle}" x:Name="BarcodeList" Width="105" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,35,0,0" SelectedIndex = "0" />
             </Grid>
         </UI:CardHolder>
         <UI:CardHolder

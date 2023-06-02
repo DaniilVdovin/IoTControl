@@ -65,7 +65,7 @@ namespace IoTControl.Core
 		}
 		public static async Task<Dictionary<string, string>> SendToThingworx(IoT thingSelf, Dictionary<string,string> data) 
 		{
-			if ((SendToThx == true)) //FIXME
+			if ((SendToThx == true)) 
 			{
 				thingSelf.ThingMonitoring = data;
 				string json = JsonSerializer.Serialize(data); // Преобразуем объект в JSON

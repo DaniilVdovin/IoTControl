@@ -33,10 +33,8 @@ namespace IoTControl
 
 			Teams = TeamLoadManager.LoadTeams();
 
-			Connections.Things = Teams[0].IoTs;
-			Console.WriteLine("Things IoTs : " + Connections.Things + "\n"+ Teams[0].IoTs);
 			Connections.DFThx = DFThx;
-			Connections.Start();
+
 			List<string> ListForTeams = new List<string>(); 
             foreach (Team team in Teams)
             {
@@ -47,6 +45,7 @@ namespace IoTControl
 			tb_serverIP.Text = DataForThingworx.ServerIP;
 
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+			
         }
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
@@ -60,7 +59,8 @@ namespace IoTControl
 		{
 			if (ThingsList.SelectedItem != null) AddNewCommandToLog($"Выбрана команда: {TeamsList.SelectedItem}");
 
-			if (Connections.Things != null) { Connections.Close(); }
+			if (Connections.Things != null)	Connections.Close();
+
 			Connections.Things = Teams[TeamsList.SelectedIndex].IoTs;
 			DataForThingworx.ServerIP = Teams[TeamsList.SelectedIndex].ServerIP;
 			DataForThingworx.AppKey = Teams[TeamsList.SelectedIndex].Appkey;
@@ -113,8 +113,9 @@ namespace IoTControl
 					if (tb_Monitoring.Text.Length > 10000)
 						tb_Monitoring.Text = tb_Monitoring.Text.Substring(tb_Monitoring.Text.Length, tb_Monitoring.Text.Length - textToMonitor.Length);
 				}
-				catch { };
+				catch (Exception ex) { Console.WriteLine($"\n{ex.Message}   \n{ex.StackTrace}\n"); };
 				tb_Monitoring.Text += textToMonitor;
+
 			});
         }
 
@@ -142,9 +143,10 @@ namespace IoTControl
 				{
 					if (tb_log.Text.Length > 10000)
 						tb_log.Text = tb_log.Text.Substring(textToLog.Length, tb_log.Text.Length- textToLog.Length); 
-						tb_log.Text += textToLog;
 				}
-				catch { };
+				catch(Exception ex) { Console.WriteLine($"\n{ex.Message}   \n{ex.StackTrace}\n"); };
+				tb_log.Text += textToLog;
+
 			});
 
 		}
@@ -289,9 +291,6 @@ namespace IoTControl
 
 		}
 
-		private void textBox_Barcode_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-		{
 
-		}
 	}
 }
