@@ -112,7 +112,7 @@
                 <CheckBox x:Name="cb_Monitoring" HorizontalAlignment="Right" Style="{StaticResource CheckBoxForTB}" IsChecked="True" ToolTip="Включить автоспуск?" Margin="213,0,0,0"/>
                 <TextBlock HorizontalAlignment="Left" Width="115" Text="Мониторинг" ></TextBlock>
                 <ScrollViewer x:Name="scroll_Monitoring" ScrollChanged="Monitoring_ScrollChanged" Grid.Row="1">
-                    <TextBlock x:Name="tb_Monitoring" TextWrapping="Wrap" Text="" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock x:Name="tb_Monitoring" TextWrapping="Wrap" Text="" TextTrimming="CharacterEllipsis" />
                 </ScrollViewer>
             </Grid>
         </UI:CardHolder>

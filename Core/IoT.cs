@@ -43,7 +43,7 @@ namespace IoTControl.Core
 			this.ThingMonitoring = robotProperties.MyDictionary[type].monitoring;
 			this.ThingControl = robotProperties.MyDictionary[type].control;
 			this.firstLetter = robotProperties.MyDictionary[type].firstLetter;
-
+			
 		}
        
         public void Start(Thread t)

@@ -108,12 +108,10 @@ namespace IoTControl
 
 				string textToMonitor = (cmd.Data != null ? cmd.ThingSelf.name + " " + cmd.Data + "\n" : "");
 				Debug.WriteLine(tb_log.Text.Length);
-				try
-				{
-					if (tb_Monitoring.Text.Length > 10000)
-						tb_Monitoring.Text = tb_Monitoring.Text.Substring(tb_Monitoring.Text.Length, tb_Monitoring.Text.Length - textToMonitor.Length);
-				}
-				catch (Exception ex) { Console.WriteLine($"\n{ex.Message}   \n{ex.StackTrace}\n"); };
+
+				if (tb_Monitoring.Text.Length > 10000)
+					tb_Monitoring.Text = tb_Monitoring.Text.Substring(100, tb_Monitoring.Text.Length - 100);
+
 				tb_Monitoring.Text += textToMonitor;
 
 			});
@@ -139,12 +137,10 @@ namespace IoTControl
 
 				string textToLog = (cmd.ThingSelf.name + " " + cmd.Data + valzxc + "\n");
 				Debug.WriteLine(tb_log.Text.Length);
-				try
-				{
-					if (tb_log.Text.Length > 10000)
-						tb_log.Text = tb_log.Text.Substring(textToLog.Length, tb_log.Text.Length- textToLog.Length); 
-				}
-				catch(Exception ex) { Console.WriteLine($"\n{ex.Message}   \n{ex.StackTrace}\n"); };
+
+				if (tb_log.Text.Length > 10000)
+					tb_log.Text = tb_log.Text.Substring(100, tb_log.Text.Length-100); 
+			
 				tb_log.Text += textToLog;
 
 			});
