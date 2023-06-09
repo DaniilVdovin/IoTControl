@@ -59,6 +59,16 @@
                     HorizontalAlignment="Left" Margin="27,94,0,0" Click="SendNumberForThing" Width="122" Content="Response(r)" Tag="r" Grid.Column="1"/>
                 <Button Style ="{StaticResource CustomButton}" x:Name="button_SendSForSelectThing" VerticalAlignment="Top"
                     HorizontalAlignment="Left" Margin="27,119,0,0" Click="SendNumberForThing"  Width="122" Content="Stop Response(s)" Tag="s" Grid.Column="1"/>
+                <!-- Фотки устройств. Других способов не знаю, а оставлять их в директории exe не вижу смысла -->
+                <Image x:Name="AnotherImageThing" Source="Sources/Things/Another.jpg" Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
+                <Image x:Name="BarcodeReaderImageThing" Source="Sources/Things/BarcodeReader.jpg"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
+                <Image x:Name="ManipulatorImageThing" Source="Sources/Things/Manipulator.png"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
+                <Image x:Name="PalletazerImageThing" Source="Sources/Things/Palletazer.png"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
+                <Image x:Name="RemoteTerminalImageThing" Source="Sources/Things/RemoteTerminal.jpg"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
+                <Image x:Name="SmartCameraImageThing" Source="Sources/Things/SmartCamera.jpg"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
+                <Image x:Name="TrafficLightImageThing" Source="Sources/Things/TrafficLight.jpg" Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
+                <!-- ДА -->
+                
             </Grid>
         </UI:CardHolder>
 
@@ -70,6 +80,7 @@
                 <TextBox x:Name="tb_serverIP" HorizontalAlignment="Left" Margin="95,24,0,0" TextWrapping="NoWrap" Text="ServerIP:port" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="tb_appKey" HorizontalAlignment="Left" Margin="95,47,0,0" TextWrapping="NoWrap" Text="AppKey" VerticalAlignment="Top" Width="120"/>
                 <!-- <Button x:Name="tb_gear" Style="{StaticResource ImageButton_Tool}" ToolTip="Синхронизация с базой" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="142,20,0,0"> <Image Source="/Sources/Icons/icons8-gear.png"/> </Button>-->
+
                 <Button Style ="{StaticResource CustomButton}" x:Name="button_SaveDataForConnectToThingworx" VerticalAlignment="Top"
                 HorizontalAlignment="Left" Margin="102,65,0,0" Click="SaveDataForConnectToThingworx"  Width="106" Content="Изменить"/>
                 <ComboBox Style="{StaticResource ComboBoxFlatStyle}" x:Name="TeamsList" Width="80" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,24,0,0" SelectedIndex = "0" SelectionChanged="TeamsList_SelectionChanged" />

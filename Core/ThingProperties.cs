@@ -14,9 +14,12 @@ namespace IoTControl.Core
 		public Dictionary<string, string> monitoring { get; set;	}
 		public string firstLetter { get; set; }
 
-		public NestedValues(IEnumerable<string> c,IEnumerable<string> m, IEnumerable<string> a,IEnumerable<string> b,string fl)
+		public string source { get; set; }
+
+		public NestedValues(IEnumerable<string> c,IEnumerable<string> m, IEnumerable<string> a,IEnumerable<string> b,string fl,string sourse)
 		{
 			this.firstLetter = fl;
+			this.source = sourse;
 			IEnumerable<string> temp = m.Select((value) => value);
 			IEnumerable<string> stemp = c.Select((value) => value);
 			var templist = new List<string>(temp);
@@ -41,37 +44,51 @@ namespace IoTControl.Core
 				temp,
 				new string[] { "s", "c", "n" },
 				null,
-				"p"));
+				"p",
+				"PalletazerImageThing"));
 			MyDictionary.Add("M",
 				new NestedValues(new string[] { "X", "Y", "T", "Z", "V" },
 				temp,
 				new string[] { "s", "c", "n" },
 				null,
-				"g"));
+				"g",
+				"ManipulatorImageThing"));
 			MyDictionary.Add("R2",
 				new NestedValues(Enumerable.Range(1, 4).Select(i => $"L{i}"),
 				Enumerable.Range(1, 3).Select(i => $"b{i}"),
 				new string[] { "p" },
 				new string[] { "D1", "DT" },
-				"r"));
+				"r",
+				"RemoteTerminalImageThing"));
 			MyDictionary.Add("C",
 				new NestedValues(new string[] { "G" },
 				Enumerable.Range(1, 6).Select(i => $"l{i}"),
 				null,
 				null,
-				"c"));
+				"c",
+				"SmartCameraImageThing"));
 			MyDictionary.Add("T",
 				new NestedValues(new string[] { "L1", "L4", "L3", "L2" },
 				new string[] { },
 				null,
 				null,
-				"l"));
+				"l",
+				"TrafficLightImageThing"));
 			MyDictionary.Add("B",
 				new NestedValues(new string[] { },
 				new string[] { },
 				null,
 				null,
-				"zxc"));
+				"the barcode does not exist in reality",
+				"BarcodeReaderImageThing"));
+			MyDictionary.Add("ANOTHER",
+				new NestedValues(new string[] { },
+				new string[] { },
+				null,
+				null,
+				"zxc What Are Doing Man? This Thing Is Not Exist zxc",
+				"AnotherImageThing"));
+
 		}
 
 	}

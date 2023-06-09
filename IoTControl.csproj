@@ -190,5 +190,19 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Sources\Things\Another.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sources\Things\BarcodeReader.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sources\Things\Manipulator.png" />
+    <Resource Include="Sources\Things\Palletazer.png" />
+    <Resource Include="Sources\Things\RemoteTerminal.jpg" />
+    <Resource Include="Sources\Things\SmartCamera.jpg" />
+    <Resource Include="Sources\Things\TrafficLight.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

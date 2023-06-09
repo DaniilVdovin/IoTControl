@@ -20,6 +20,7 @@ namespace IoTControl.Core
         public string hostname; 
         public int port;
 		public string service;
+		public string sourcetophoto;
 		public Thread thread;
         public UDP UDP;
 		public Dictionary<string, string> ThingMonitoring = new Dictionary<string, string>();
@@ -40,10 +41,19 @@ namespace IoTControl.Core
             this.hostname = data[2];
             this.port = int.Parse(data[3]);
             this.service = data[5];
-			this.ThingMonitoring = robotProperties.MyDictionary[type].monitoring;
-			this.ThingControl = robotProperties.MyDictionary[type].control;
-			this.firstLetter = robotProperties.MyDictionary[type].firstLetter;
-			
+			if (robotProperties.MyDictionary.ContainsKey(type))
+			{
+				this.ThingMonitoring = robotProperties.MyDictionary[type].monitoring;
+				this.ThingControl = robotProperties.MyDictionary[type].control;
+				this.firstLetter = robotProperties.MyDictionary[type].firstLetter;
+				this.sourcetophoto = robotProperties.MyDictionary[type].source;
+			}
+			else {
+				this.ThingMonitoring = robotProperties.MyDictionary["ANOTHER"].monitoring;
+				this.ThingControl = robotProperties.MyDictionary["ANOTHER"].control;
+				this.firstLetter = robotProperties.MyDictionary["ANOTHER"].firstLetter;
+				this.sourcetophoto = robotProperties.MyDictionary["ANOTHER"].source;
+			}
 		}
        
         public void Start(Thread t)

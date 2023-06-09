@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO.Packaging;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -190,6 +191,15 @@ namespace IoTControl
 		public void ChangeKeyValue(IoT things)
 		{
 			Container_parameters.Children.Clear(); InputControl.Clear();
+
+			foreach (var th in Connections.Things)
+			{
+				(FindName(th.sourcetophoto) as Image).Visibility = Visibility.Hidden;
+			}
+			var obj = FindName(Connections.Things[ThingsList.SelectedIndex].sourcetophoto);
+			(obj as Image).Visibility = Visibility.Visible; 
+
+
 			foreach (string s in things.ThingControl.Keys)
 			{
 				InputControlWlegend temp = new InputControlWlegend(s, things.ThingControl[s].ToString());
