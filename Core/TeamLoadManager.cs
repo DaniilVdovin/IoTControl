@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Shapes;
 
 namespace IoTControl.Core
@@ -39,13 +40,27 @@ namespace IoTControl.Core
         }
         public static List<Team> LoadTeams()
         {
-            List<Team> teams = new List<Team>();
-            foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory+"/Teams/", "_*.txt", SearchOption.AllDirectories))
-            {
-                teams.Add(LoadFile(file));
-                Console.WriteLine(file);
+            try { 
+                List<Team> teams = new List<Team>();
+                foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory+"/Teams/", "_*.txt", SearchOption.AllDirectories))
+                {
+                    teams.Add(LoadFile(file));
+                    Console.WriteLine(file);
+			    }
+			    return teams;
 			}
-			return teams;
+			catch {
+				string messageBoxText = "Гайд по настройке IoT control center:\nВам нужно создать папку Teams в директории IoT control center, затем создать в нём файл _{название команды}.txt," +
+                    " потом написать в нём:\n\n{IPAddress Thingworx};{Appkey Thingworx}\n\nДальше нужно написать информацию об устройствах(вещах) с таким шаблоном:\n\n{type};{номер узла};{IPAddress Thing};{Port Thing};{Имя вещи на Thingworx};{Имя сервиса вещи на Thingworx}";
+				string caption = "Отсутствует папка Teams/Нарушена структура файла команды";
+				MessageBoxButton button = MessageBoxButton.OK;
+				MessageBoxImage icon = MessageBoxImage.Error;
+				MessageBoxResult result;
+
+				result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.OK);
+                Environment.Exit(0);
+				return null; //без него ошибка
+			}
         }
     }
 }
