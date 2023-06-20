@@ -8,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -110,8 +111,8 @@ namespace IoTControl
 				string textToMonitor = (cmd.Data != null ? cmd.ThingSelf.name + " " + cmd.Data + "\n" : "");
 				Debug.WriteLine(tb_log.Text.Length);
 
-				if (tb_Monitoring.Text.Length > 10000)
-					tb_Monitoring.Text = tb_Monitoring.Text.Substring(100, tb_Monitoring.Text.Length - 100);
+				if (tb_Monitoring.Text.Length > 1000)
+					tb_Monitoring.Text = tb_Monitoring.Text.Substring(tb_Monitoring.Text.Length - 1000, 1000);
 
 				tb_Monitoring.Text += textToMonitor;
 
@@ -139,11 +140,11 @@ namespace IoTControl
 				string textToLog = (cmd.ThingSelf.name + " " + cmd.Data + valzxc + "\n");
 				Debug.WriteLine(tb_log.Text.Length);
 
-				if (tb_log.Text.Length > 10000)
-					tb_log.Text = tb_log.Text.Substring(100, tb_log.Text.Length-100); 
+				if (tb_log.Text.Length > 1000)
+					tb_log.Text = tb_log.Text.Substring(tb_log.Text.Length-1000, 1000); 
 			
 				tb_log.Text += textToLog;
-
+				
 			});
 
 		}
@@ -196,9 +197,10 @@ namespace IoTControl
 			{
 				(FindName(th.sourcetophoto) as Image).Visibility = Visibility.Hidden;
 			}
-			var obj = FindName(Connections.Things[ThingsList.SelectedIndex].sourcetophoto);
-			(obj as Image).Visibility = Visibility.Visible; 
-
+			try { 
+				var obj = FindName(Connections.Things[ThingsList.SelectedIndex].sourcetophoto);
+				(obj as Image).Visibility = Visibility.Visible;
+			} catch { }
 
 			foreach (string s in things.ThingControl.Keys)
 			{

@@ -64,9 +64,9 @@
                 <Image x:Name="BarcodeReaderImageThing" Source="Sources/Things/BarcodeReader.jpg"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
                 <Image x:Name="ManipulatorImageThing" Source="Sources/Things/Manipulator.png"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
                 <Image x:Name="PalletazerImageThing" Source="Sources/Things/Palletazer.png"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
-                <Image x:Name="RemoteTerminalImageThing" Source="Sources/Things/RemoteTerminal.jpg"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
+                <Image x:Name="RemoteTerminalImageThing" Source="Sources/Things/RemoteTerminal.png"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
                 <Image x:Name="SmartCameraImageThing" Source="Sources/Things/SmartCamera.jpg"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
-                <Image x:Name="TrafficLightImageThing" Source="Sources/Things/TrafficLight.jpg" Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
+                <Image x:Name="TrafficLightImageThing" Source="Sources/Things/TrafficLight.png" Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
                 <!-- ДА -->
                 
             </Grid>
