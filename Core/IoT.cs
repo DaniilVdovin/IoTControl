@@ -22,11 +22,13 @@ namespace IoTControl.Core
 		public string service;
 		public string sourcetophoto;
 		public Thread thread;
-        public UDP UDP;
+		public Thread threadVisualization;
+        public bool visualizationIsOpen;
+		public UDP UDP;
 		public Dictionary<string, string> ThingMonitoring = new Dictionary<string, string>();
 		public Dictionary<string, string> ThingControl = new Dictionary<string, string>();
-
-
+		public Dictionary<string, string> RemoteTerminalText;
+		
 		public IoT(string type, string name, string hostname, int port)
         {
             this.type = type;
@@ -43,8 +45,12 @@ namespace IoTControl.Core
             this.service = data[5];
 			if (robotProperties.MyDictionary.ContainsKey(type))
 			{
-				this.ThingMonitoring = robotProperties.MyDictionary[type].monitoring;
-				this.ThingControl = robotProperties.MyDictionary[type].control;
+				if (type == "R2") 
+				{
+					this.RemoteTerminalText = new Dictionary<string, string>() { { "D0","" }, { "D1","" }, { "D2", "" }, { "D3", "" } }; //D = Display
+				}
+				this.ThingMonitoring = new Dictionary<string, string>(robotProperties.MyDictionary[type].monitoring); //new Dictionary<string, string>(); потому что без него начинает перезаписывать robotProperties и делает его как связующее звено (*/ω＼*) 
+				this.ThingControl = new Dictionary<string, string>(robotProperties.MyDictionary[type].control);
 				this.firstLetter = robotProperties.MyDictionary[type].firstLetter;
 				this.sourcetophoto = robotProperties.MyDictionary[type].source;
 			}
@@ -63,7 +69,18 @@ namespace IoTControl.Core
             thread = t;
             thread.Start();
         }
-        public void SetupUPD() => UDP = new UDP(hostname,port);
+		public void StartVisualization(Thread t)
+		{
+			if (threadVisualization != null) 
+			{ 
+				threadVisualization.Abort();
+				visualizationIsOpen = false;
+			}
+			threadVisualization = t;
+			visualizationIsOpen = true; //необходимо для оптимизации / прошлые варианты приводили либо к куче потоков бесконечных, либо же к нерабочим прошлым окнам \ а так кайф
+			threadVisualization.Start();
+		}
+		public void SetupUPD() => UDP = new UDP(hostname,port);
 		public Dictionary<string, string> GetRobotsData(string[] Subs)
 		{
 			var Data = new Dictionary<string, string>();

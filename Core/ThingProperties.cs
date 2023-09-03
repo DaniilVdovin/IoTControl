@@ -76,7 +76,7 @@ namespace IoTControl.Core
 				"TrafficLightImageThing"));
 			MyDictionary.Add("B",
 				new NestedValues(new string[] { },
-				new string[] { },
+				new string[] { "c" },
 				null,
 				null,
 				"the barcode does not exist in reality",

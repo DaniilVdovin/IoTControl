@@ -47,8 +47,9 @@ namespace IoTControl
 			tb_serverIP.Text = DataForThingworx.ServerIP;
 
             Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-			
-        }
+			this.Closing += Dispatcher_ShutdownStarted; // ради интереса написал (просто после закрытия окна программа не всегда заканчивает работу) 
+
+		}
 
         private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
         {
@@ -157,6 +158,7 @@ namespace IoTControl
 			for (int i = 0; i < InputControl.Count; i++)
 			{
 				Connections.Things[ThingsList.SelectedIndex].ThingControl[InputControl[i].getLegend()] = InputControl[i].Value;
+				Console.WriteLine(robotProperties.MyDictionary["P"].control);
 			}
 			SendData(InputControl.Count, Connections.Things[ThingsList.SelectedIndex]);
 		}
@@ -166,6 +168,7 @@ namespace IoTControl
 		}
 		private void SendData(int Param, IoT ThingSelf)
 		{
+			if (ThingSelf.type == "R2") ThingSelf.RemoteTerminalText["D" + InputControl[4].Value] = InputControl[5].Value;
 			string Cmd_package = ThingSelf.firstLetter;
 
 			for (int i = 0; i < Param; i++)
@@ -257,6 +260,7 @@ namespace IoTControl
 			if (BarcodeList.SelectedIndex != -1)
 			{
 				_ = Thingworx.SendToThingworx(ListBarcode[(BarcodeList.SelectedIndex)], new Dictionary<string, string> { { "c", textBox_Barcode.Text } });
+				ListBarcode[(BarcodeList.SelectedIndex)].ThingMonitoring["c"] = textBox_Barcode.Text;
 				AddNewCommandToLog($"Код был отправлен: {textBox_Barcode.Text} на {ListBarcode[(BarcodeList.SelectedIndex)].name}");
 
 			}
@@ -299,6 +303,37 @@ namespace IoTControl
 
 		}
 
-
-	}
+		private void button_Visualization_Click(object sender, RoutedEventArgs e)
+		{
+			if (Connections.Things[ThingsList.SelectedIndex].visualizationIsOpen == false) 
+			{
+				Window visualizationWindow;
+				if (Connections.Things[ThingsList.SelectedIndex].type == "M" || Connections.Things[ThingsList.SelectedIndex].type == "P")
+				{
+					visualizationWindow = new VisualizationRobotWindow(Connections.Things[ThingsList.SelectedIndex]);
+				} //может надо было сделать чтобы объект вещи это окно хранил? 
+				else if (Connections.Things[ThingsList.SelectedIndex].type == "T") 
+				{ 
+					visualizationWindow = new VisualizationTrafficLightWindow(Connections.Things[ThingsList.SelectedIndex]); 
+				}
+				else if (Connections.Things[ThingsList.SelectedIndex].type == "B")
+				{
+					visualizationWindow = new VisualizationBarcodeReaderWindow(Connections.Things[ThingsList.SelectedIndex]); 
+				}
+				else if (Connections.Things[ThingsList.SelectedIndex].type == "R2")
+				{
+					visualizationWindow = new VisualizationRemoteTerminalWindow(Connections.Things[ThingsList.SelectedIndex]);
+				}
+				else if (Connections.Things[ThingsList.SelectedIndex].type == "C")
+				{
+					visualizationWindow = new VisualizationSmartCameraWindow(Connections.Things[ThingsList.SelectedIndex]);
+				}
+				else { visualizationWindow = new VisualizationAnotherWindow(Connections.Things[ThingsList.SelectedIndex]); }  
+				visualizationWindow.Title = ThingsList.SelectedItem.ToString();
+				visualizationWindow.Owner = this; //  mainWindow.Closing += MainWindow_Closing;             or             mainWindow.Closed += (s, e) => Close();
+				Connections.Things[ThingsList.SelectedIndex].visualizationIsOpen = true;
+				visualizationWindow.Show();
+			}
+		}
+    }
 }

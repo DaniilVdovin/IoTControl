@@ -59,6 +59,8 @@
                     HorizontalAlignment="Left" Margin="27,94,0,0" Click="SendNumberForThing" Width="122" Content="Response(r)" Tag="r" Grid.Column="1"/>
                 <Button Style ="{StaticResource CustomButton}" x:Name="button_SendSForSelectThing" VerticalAlignment="Top"
                     HorizontalAlignment="Left" Margin="27,119,0,0" Click="SendNumberForThing"  Width="122" Content="Stop Response(s)" Tag="s" Grid.Column="1"/>
+                <Button Style ="{StaticResource CustomButton}" x:Name="button_Visualization" VerticalAlignment="Bottom"
+                 HorizontalAlignment="Left" Margin="27,119,0,0" Click="button_Visualization_Click"  Width="122" Content="Визуализация" Tag="visualization" Grid.Column="1"/>
                 <!-- Фотки устройств. Других способов не знаю, а оставлять их в директории exe не вижу смысла -->
                 <Image x:Name="AnotherImageThing" Source="Sources/Things/Another.jpg" Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>
                 <Image x:Name="BarcodeReaderImageThing" Source="Sources/Things/BarcodeReader.jpg"  Grid.Column="1" Margin="10,159,6,111" Visibility="Hidden"/>

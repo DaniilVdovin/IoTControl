@@ -105,6 +105,24 @@
     <Compile Include="Core\Thingworx.cs" />
     <Compile Include="UI\CardHolder.cs" />
     <Compile Include="UI\InputControlWlegend.cs" />
+    <Compile Include="VisualizationAnotherWindow.xaml.cs">
+      <DependentUpon>VisualizationAnotherWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizationBarcodeReaderWindow.xaml.cs">
+      <DependentUpon>VisualizationBarcodeReaderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizationRemoteTerminalWindow.xaml.cs">
+      <DependentUpon>VisualizationRemoteTerminalWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizationRobotWindow.xaml.cs">
+      <DependentUpon>VisualizationRobotWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizationSmartCameraWindow.xaml.cs">
+      <DependentUpon>VisualizationSmartCameraWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizationTrafficLightWindow.xaml.cs">
+      <DependentUpon>VisualizationTrafficLightWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,6 +162,30 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Styles\MainStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualizationAnotherWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualizationBarcodeReaderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualizationRemoteTerminalWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualizationRobotWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualizationSmartCameraWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualizationTrafficLightWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,6 +248,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Sources\Things\TrafficLight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sources\Others\PhotoForVisualizationAnother.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
