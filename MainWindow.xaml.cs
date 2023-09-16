@@ -127,7 +127,7 @@ namespace IoTControl
 				var valzxc = "";
 				if (cmd.Data != null && cmd.Data.Length < 4) cmd.Data = null;
 
-
+				 
 				if (cmd.Response == null) { }
 				else
 				{
@@ -169,8 +169,15 @@ namespace IoTControl
 		private void SendData(int Param, IoT ThingSelf)
 		{
 			if (ThingSelf.type == "R2") ThingSelf.RemoteTerminalText["D" + InputControl[4].Value] = InputControl[5].Value;
-			string Cmd_package = ThingSelf.firstLetter;
 
+			if (ThingSelf.type == "T") 
+			{
+				var temp = ThingSelf.ThingControl["L2"];
+				ThingSelf.ThingControl["L2"] = ThingSelf.ThingControl["L4"];
+				ThingSelf.ThingControl["L4"] = temp;
+			}
+
+			string Cmd_package = ThingSelf.firstLetter;
 			for (int i = 0; i < Param; i++)
 			{
 				Cmd_package += ":" + ThingSelf.ThingControl.ElementAt(i).Value;

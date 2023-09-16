@@ -108,7 +108,7 @@ namespace IoTControl.Core
 			Data.Add("s", Subs[1].Split(':')[2]);
 			Data.Add("n", Subs[2].Split(':')[3]);
 
-			//this.ThingMonitoring = Data;
+			this.ThingMonitoring = Data;
 			return Data;
 		}
 		public Dictionary<string, string> GetTerminalData(string[] Subs)
@@ -119,7 +119,7 @@ namespace IoTControl.Core
 			Data.Add("b2", Subs[0].Split(':')[4]);
 			Data.Add("b3", Subs[0].Split(':')[5]);
 
-			//this.ThingMonitoring = Data;
+			this.ThingMonitoring = Data;
 			return Data;
 		}
 		public Dictionary<string, string> GetCameraData(string[] Subs)
@@ -132,7 +132,7 @@ namespace IoTControl.Core
 				Data.Add(("l" + (i - 1)), strokes[i]);
 			}
 			
-			//this.ThingMonitoring = Data;
+			this.ThingMonitoring = Data;
 			return Data;
 		}
 

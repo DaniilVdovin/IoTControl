@@ -17,17 +17,17 @@ using System.Windows.Shapes;
 namespace IoTControl
 {
 	/// <summary>
-	/// Логика взаимодействия для VisualizationRobotWindow.xaml
+	/// Логика взаимодействия для VisualizationTrafficLightWindow.xaml
 	/// </summary>
-	public partial class VisualizationRobotWindow : Window 
+	public partial class VisualizationTrafficLightWindow : Window
 	{
 		IoT robot;
-		public VisualizationRobotWindow(IoT i)
+		public VisualizationTrafficLightWindow(IoT i)
 		{
 			InitializeComponent();
 			robot = i;
 			alwaysReadDataStart(i);
-            Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+			Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
 			this.Closing += Dispatcher_ShutdownStarted;
 		}
 		private void Dispatcher_ShutdownStarted(object sender, EventArgs e)
@@ -46,13 +46,13 @@ namespace IoTControl
 					{
 						Dispatcher.Invoke(() =>
 						{
-							tb_Xcoordinate.Text = "  Робот: " + i.name + " Координата по X: " + i.ThingControl["X"];
-							tb_Ycoordinate.Text = "  Робот: " + i.name + " Координата по Y: " + i.ThingControl["Y"];
-							LineToRobot.X2 = 325.0 - Convert.ToDouble(i.ThingControl["X"]);
-							LineToRobot.Y2 = 292.0 - Convert.ToDouble(i.ThingControl["Y"]);
-							Canvas.SetLeft(EllipseToRobot, 325.0 - Convert.ToDouble(i.ThingControl["X"])-6);
-							Canvas.SetTop(EllipseToRobot, 292.0 - Convert.ToDouble(i.ThingControl["Y"])-6);
-							Console.WriteLine("robot "+robot.name);
+
+							if (i.ThingControl["L1"] == "1") RectangleL1.Fill = Brushes.Red; else RectangleL1.Fill = null;
+							if (i.ThingControl["L4"] == "1") RectangleL2.Fill = Brushes.Yellow; else RectangleL2.Fill = null;
+							if (i.ThingControl["L3"] == "1") RectangleL3.Fill = Brushes.Blue; else RectangleL3.Fill = null;
+							if (i.ThingControl["L2"] == "1") RectangleL4.Fill = Brushes.Green; else RectangleL4.Fill = null; 
+
+							Console.WriteLine("robot " + robot.name);
 						});
 						Thread.Sleep(50);
 					}

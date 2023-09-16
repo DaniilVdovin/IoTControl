@@ -23,9 +23,9 @@
 
             <!--Для отображения-->
             <Rectangle x:Name="RectangleL1" Height="100" Canvas.Left="91" Stroke="Black" Canvas.Top="24" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Rectangle x:Name="RectangleL4" Height="100" Canvas.Left="91" Stroke="Black" Canvas.Top="124" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Rectangle x:Name="RectangleL2" Height="100" Canvas.Left="91" Stroke="Black" Canvas.Top="124" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <Rectangle x:Name="RectangleL3" Height="100" Canvas.Left="91" Stroke="Black" Canvas.Top="224" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Rectangle x:Name="RectangleL2" Height="100" Canvas.Left="91" Stroke="Black" Canvas.Top="324" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Rectangle x:Name="RectangleL4" Height="100" Canvas.Left="91" Stroke="Black" Canvas.Top="324" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
     </Grid>
 </Window>

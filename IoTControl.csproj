@@ -105,22 +105,22 @@
     <Compile Include="Core\Thingworx.cs" />
     <Compile Include="UI\CardHolder.cs" />
     <Compile Include="UI\InputControlWlegend.cs" />
-    <Compile Include="VisualizationAnotherWindow.xaml.cs">
+    <Compile Include="VisualizationWindow\VisualizationAnotherWindow.xaml.cs">
       <DependentUpon>VisualizationAnotherWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VisualizationBarcodeReaderWindow.xaml.cs">
+    <Compile Include="VisualizationWindow\VisualizationBarcodeReaderWindow.xaml.cs">
       <DependentUpon>VisualizationBarcodeReaderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VisualizationRemoteTerminalWindow.xaml.cs">
+    <Compile Include="VisualizationWindow\VisualizationRemoteTerminalWindow.xaml.cs">
       <DependentUpon>VisualizationRemoteTerminalWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VisualizationRobotWindow.xaml.cs">
+    <Compile Include="VisualizationWindow\VisualizationRobotWindow.xaml.cs">
       <DependentUpon>VisualizationRobotWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VisualizationSmartCameraWindow.xaml.cs">
+    <Compile Include="VisualizationWindow\VisualizationSmartCameraWindow.xaml.cs">
       <DependentUpon>VisualizationSmartCameraWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VisualizationTrafficLightWindow.xaml.cs">
+    <Compile Include="VisualizationWindow\VisualizationTrafficLightWindow.xaml.cs">
       <DependentUpon>VisualizationTrafficLightWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -165,27 +165,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VisualizationAnotherWindow.xaml">
+    <Page Include="VisualizationWindow\VisualizationAnotherWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VisualizationBarcodeReaderWindow.xaml">
+    <Page Include="VisualizationWindow\VisualizationBarcodeReaderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VisualizationRemoteTerminalWindow.xaml">
+    <Page Include="VisualizationWindow\VisualizationRemoteTerminalWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VisualizationRobotWindow.xaml">
+    <Page Include="VisualizationWindow\VisualizationRobotWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VisualizationSmartCameraWindow.xaml">
+    <Page Include="VisualizationWindow\VisualizationSmartCameraWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VisualizationTrafficLightWindow.xaml">
+    <Page Include="VisualizationWindow\VisualizationTrafficLightWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

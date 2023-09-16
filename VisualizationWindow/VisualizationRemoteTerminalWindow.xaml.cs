@@ -58,9 +58,9 @@ namespace IoTControl
 
 							if (i.ThingMonitoring["p"] == "1") lamp_DeadmanSwitch.Fill = Brushes.Red; else lamp_DeadmanSwitch.Fill = null;
 
-							tb_button1.Text = i.ThingMonitoring["b1"];
-							tb_button2.Text = i.ThingMonitoring["b2"];
-							tb_button3.Text = i.ThingMonitoring["b3"];
+							tb_button1.Text = i.ThingMonitoring["b2"];
+							tb_button2.Text = i.ThingMonitoring["b3"];
+							tb_button3.Text = i.ThingMonitoring["b1"];
 
 
 							Console.WriteLine("robot " + robot.name);
